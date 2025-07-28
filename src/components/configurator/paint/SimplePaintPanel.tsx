@@ -1,0 +1,235 @@
+// ==================================================
+// AI EXPLANATION: SimplePaintPanel.tsx
+// ==================================================
+// WHAT: Paint customization panel component handling yacht color selection with paint type filtering, custom color picker, and real-time updates to yacht parts
+// WHY: Without this, users can't customize yacht paint colors - it's the main UI for selecting and applying paint colors to different yacht parts
+// USED BY: ConfiguratorPage (when PAINT navigation is active), provides color selection interface for 3D configurator
+// CRITICAL: YES - Core customization feature for yacht paint, breaking this removes ability to change yacht colors
+// ==================================================
+
+/**
+ * TODO: SimplePaintPanel V2 - Remove navigationStore
+ * 
+ * 1. Replace useNavigationStore with useYachtStore:
+ *    - Read active_level_2 and active_level_3 from currentYacht
+ *    - Remove destructured navigation store values
+ * 2. Direct update pattern:
+ *    - Every color selection immediately updates yacht.paint
+ *    - No batching or debouncing here
+ * 3. Simplify color picker integration:
+ *    - When custom color created, add to yacht.custom_colors
+ *    - Update yacht.paint[activeLevel2] with new color
+ * 4. Fix part name mapping:
+ *    - activeLevel2 uses lowercase (hull, bootstripe)
+ *    - Ensure consistent casing throughout
+ */
+
+import React, { useMemo } from 'react';
+import { useYachtStore } from '@/stores/yachtStore';
+import { PAINT_COLORS, getFilteredColors, normalizeString, PaintColor } from '@/data/paintColors';
+import { hslToHex } from './utils';
+import SimpleColorSwatches from './SimpleColorSwatches';
+import PaintTypeFilter from './PaintTypeFilter';
+import YachtPartSelector from './YachtPartSelector';
+import ColorPicker from './ColorPicker';
+
+interface SimplePaintPanelProps {
+  onColorChange?: (part: string, color: string, type: string, name: string, group?: string) => void;
+}
+
+const SimplePaintPanel: React.FC<SimplePaintPanelProps> = ({ onColorChange }) => {
+  const { currentYacht, updateYachtColor, setNavigationState } = useYachtStore();
+  
+  // Get navigation state from yacht config
+  const activeLevel2 = currentYacht?.active_level_2 || null;
+  const activeLevel3 = currentYacht?.active_level_3 || null;
+  
+  const [selectedPaintType, setSelectedPaintType] = React.useState('gloss');
+  const [customColor, setCustomColor] = React.useState('#FFFFFF');
+  
+  // Get custom colors from yacht
+  const customColors = useMemo(() => {
+    if (!currentYacht?.custom_colors) return [];
+    
+    try {
+      const colors = Array.isArray(currentYacht.custom_colors) 
+        ? currentYacht.custom_colors 
+        : JSON.parse(currentYacht.custom_colors as string);
+      
+      // Filter by selected paint type
+      return colors.filter((color: PaintColor) => 
+        normalizeString(color.type) === normalizeString(selectedPaintType)
+      );
+    } catch (e) {
+      console.error('Error parsing custom colors:', e);
+      return [];
+    }
+  }, [currentYacht?.custom_colors, selectedPaintType]);
+  
+  // Get filtered colors based on current selections
+  const filteredColors = useMemo(() => {
+    // If custom colors selected, return custom colors instead
+    if (activeLevel3 === 'custom-colours') {
+      return customColors;
+    }
+    return getFilteredColors(activeLevel3, selectedPaintType);
+  }, [activeLevel3, selectedPaintType, customColors]);
+  
+  // Handle color selection
+  const handleColorSelect = async (color: PaintColor) => {
+    if (!activeLevel2) return;
+    
+    const part = normalizeString(activeLevel2);
+    
+    // Update yacht store
+    await updateYachtColor(part, color.hex, color.type, color.name, color.group);
+    
+    // Call external handler if provided
+    if (onColorChange) {
+      onColorChange(part, color.hex, color.type, color.name, color.group);
+    }
+  };
+  
+  // Handle adding custom color to yacht
+  const handleAddCustomColor = async () => {
+    if (!currentYacht) return;
+    
+    const currentCustomColors = currentYacht.custom_colors 
+      ? (Array.isArray(currentYacht.custom_colors) 
+          ? currentYacht.custom_colors 
+          : JSON.parse(currentYacht.custom_colors as string))
+      : [];
+    
+    // Generate name like "Custom 1", "Custom 2", etc.
+    const customCount = currentCustomColors.filter((c: PaintColor) => 
+      c.name.startsWith('Custom')
+    ).length;
+    
+    // Convert HSL to hex if needed
+    let hexColor = customColor;
+    if (!customColor.startsWith('#')) {
+      const [h, s, l] = customColor.split(',').map(Number);
+      hexColor = hslToHex(h, s, l);
+    }
+    
+    const newCustomColor: PaintColor = {
+      id: `custom-${Date.now()}`,
+      name: `Custom ${customCount + 1}`,
+      hex: hexColor,
+      type: selectedPaintType as 'gloss' | 'matte' | 'metallic',
+      group: 'custom-colours'
+    };
+    
+    const updatedColors = [...currentCustomColors, newCustomColor];
+    
+    // Update yacht with new custom colors array
+    await updateYachtColor(
+      'custom_colors',
+      JSON.stringify(updatedColors),
+      '',
+      '',
+      ''
+    );
+  };
+  
+  // Handle custom color change
+  const handleCustomColorChange = async (colorValue: string) => {
+    setCustomColor(colorValue);
+    
+    if (!activeLevel2) return;
+    
+    const part = normalizeString(activeLevel2);
+    const paintType = selectedPaintType;
+    
+    // Convert HSL to hex if needed
+    let hex = colorValue;
+    if (!colorValue.startsWith('#')) {
+      const [h, s, l] = colorValue.split(',').map(Number);
+      hex = hslToHex(h, s, l);
+    }
+    
+    // Update yacht store
+    await updateYachtColor(part, hex, paintType, 'Custom Color', 'custom-colours');
+    
+    // Call external handler
+    if (onColorChange) {
+      onColorChange(part, hex, paintType, 'Custom Color', 'custom-colours');
+    }
+  };
+  
+  // Get part colors for the yacht part selector
+  const partColors = useMemo(() => {
+    if (!currentYacht) return {};
+    
+    const colors: Record<string, any> = {};
+    const parts = ['hull', 'superstructure', 'deckhouse', 'mast', 'bootstripe'];
+    
+    parts.forEach(part => {
+      const colorKey = `${part}_paint_color`;
+      const typeKey = `${part}_paint_type`;
+      
+      if (currentYacht[colorKey]) {
+        colors[part] = {
+          color: currentYacht[colorKey],
+          type: currentYacht[typeKey] || 'gloss',
+          name: 'Color'
+        };
+      }
+    });
+    
+    return colors;
+  }, [currentYacht]);
+  
+  // Handle part selection
+  const handlePartSelect = (part: string) => {
+    // Update navigation state in yacht config
+    setNavigationState(
+      currentYacht?.active_level_1 || 'PAINT',
+      normalizeString(part),
+      activeLevel3
+    );
+    
+    // Update selected paint type based on part's current type
+    const partType = currentYacht?.[`${normalizeString(part)}_paint_type`];
+    if (partType) {
+      setSelectedPaintType(normalizeString(partType));
+    }
+  };
+  
+  return (
+    <div className="h-[160px] pt-4 mx-auto divide-x divide-white/10 overflow-hidden flex">
+      {/* Paint Type Filter */}
+      <PaintTypeFilter 
+        selectedPaintType={selectedPaintType}
+        onPaintTypeSelect={setSelectedPaintType}
+      />
+      
+      {/* Custom Color Picker - only show when custom colors selected */}
+      {activeLevel3 === 'custom-colours' && (
+        <ColorPicker
+          customColor={customColor}
+          onCustomColorChange={handleCustomColorChange}
+          onAddCustomColor={handleAddCustomColor}
+        />
+      )}
+      
+      {/* Color Swatches */}
+      <div className="flex-1 px-4">
+        <h3 className="text-xs font-bold text-white mb-2">Color Selection</h3>
+        <SimpleColorSwatches
+          colors={filteredColors}
+          selectedPaintType={selectedPaintType}
+          onColorSelect={handleColorSelect}
+        />
+      </div>
+      
+      {/* Yacht Part Selector */}
+      <YachtPartSelector
+        partColors={partColors}
+        onPartSelect={handlePartSelect}
+      />
+    </div>
+  );
+};
+
+export default SimplePaintPanel;

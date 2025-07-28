@@ -1,0 +1,172 @@
+{
+  "colors": [
+    {
+      "id": "white-1",
+      "name": "Pure White",
+      "hex": "#FFFFFF",
+      "type": "gloss",
+      "group": "white-beige"
+    },
+    {
+      "id": "white-2",
+      "name": "Off White",
+      "hex": "#F8F8F0",
+      "type": "gloss",
+      "group": "White & Beiges"
+    },
+    {
+      "id": "white-3",
+      "name": "Cream",
+      "hex": "#FFFDD0",
+      "type": "gloss",
+      "group": "White & Beiges"
+    },
+    {
+      "id": "white-4",
+      "name": "Pearl White",
+      "hex": "#FAFAFA",
+      "type": "metallic",
+      "group": "White & Beiges"
+    },
+    {
+      "id": "beige-1",
+      "name": "Champagne",
+      "hex": "#F7E7CE",
+      "type": "metallic",
+      "group": "White & Beiges"
+    },
+    {
+      "id": "gold-1",
+      "name": "Gold",
+      "hex": "#FFD700",
+      "type": "metallic",
+      "group": "gold-brown"
+    },
+    {
+      "id": "gold-2",
+      "name": "Bronze",
+      "hex": "#CD7F32",
+      "type": "metallic",
+      "group": "Golds & Browns"
+    },
+    {
+      "id": "brown-1",
+      "name": "Chocolate",
+      "hex": "#7B3F00",
+      "type": "gloss",
+      "group": "Golds & Browns"
+    },
+    {
+      "id": "black-1",
+      "name": "Jet Black",
+      "hex": "#000000",
+      "type": "gloss",
+      "group": "black-grey"
+    },
+    {
+      "id": "black-2",
+      "name": "Matte Black",
+      "hex": "#0C0C0C",
+      "type": "matte",
+      "group": "Black & Greys"
+    },
+    {
+      "id": "grey-1",
+      "name": "Charcoal",
+      "hex": "#333333",
+      "type": "gloss",
+      "group": "Black & Greys"
+    },
+    {
+      "id": "grey-2",
+      "name": "Silver",
+      "hex": "#C0C0C0",
+      "type": "metallic",
+      "group": "Black & Greys"
+    },
+    {
+      "id": "grey-3",
+      "name": "Gunmetal",
+      "hex": "#2A3439",
+      "type": "metallic",
+      "group": "Black & Greys"
+    },
+    {
+      "id": "blue-1",
+      "name": "Ocean Blue",
+      "hex": "#0066CC",
+      "type": "gloss",
+      "group": "blue"
+    },
+    {
+      "id": "blue-2",
+      "name": "Navy Blue",
+      "hex": "#003366",
+      "type": "matte",
+      "group": "Blues"
+    },
+    {
+      "id": "blue-3",
+      "name": "Sky Blue",
+      "hex": "#87CEEB",
+      "type": "gloss",
+      "group": "Blues"
+    },
+    {
+      "id": "blue-4",
+      "name": "Metallic Blue",
+      "hex": "#4682B4",
+      "type": "metallic",
+      "group": "Blues"
+    },
+    {
+      "id": "green-1",
+      "name": "Forest Green",
+      "hex": "#228B22",
+      "type": "gloss",
+      "group": "green"
+    },
+    {
+      "id": "green-2",
+      "name": "Emerald",
+      "hex": "#50C878",
+      "type": "metallic",
+      "group": "Greens"
+    },
+    {
+      "id": "green-3",
+      "name": "Olive",
+      "hex": "#808000",
+      "type": "matte",
+      "group": "Greens"
+    },
+    {
+      "id": "red-1",
+      "name": "Sunset Red",
+      "hex": "#CC3300",
+      "type": "gloss",
+      "group": "red-orange-yellow"
+    },
+    {
+      "id": "red-2",
+      "name": "Crimson",
+      "hex": "#DC143C",
+      "type": "gloss",
+      "group": "Reds, Oranges & Yellows"
+    },
+    {
+      "id": "orange-1",
+      "name": "Orange",
+      "hex": "#FF8C00",
+      "type": "gloss",
+      "group": "Reds, Oranges & Yellows"
+    },
+    {
+      "id": "yellow-1",
+      "name": "Bright Yellow",
+      "hex": "#FFFF00",
+      "type": "gloss",
+      "group": "Reds, Oranges & Yellows"
+    }
+  ]
+}

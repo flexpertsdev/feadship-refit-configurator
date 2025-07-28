@@ -1,0 +1,51 @@
+/* ==================================================
+ * AI EXPLANATION: fonts.css
+ * ==================================================
+ * WHAT: This file contains fonts.css
+ * WHY: This file provides standalone functionality
+ * USED BY: No direct dependencies found
+ * CRITICAL: NO - Safe to modify with caution
+ * ==================================================
+ */
+
+
+/* Gotham HTF Font Family */
+@font-face {
+  font-family: 'Gotham HTF';
+  src: url('/assets/fonts/gotham-light-webfont.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham HTF';
+  src: url('/assets/fonts/gotham-book-webfont.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham HTF';
+  src: url('/assets/fonts/gotham-medium-webfont.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham HTF';
+  src: url('/assets/fonts/gotham-bold-webfont.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham HTF';
+  src: url('/assets/fonts/gotham-black-webfont.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}

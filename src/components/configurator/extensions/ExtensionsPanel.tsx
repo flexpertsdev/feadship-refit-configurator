@@ -115,8 +115,8 @@ export function ExtensionsPanel({ onSendCommand }: ExtensionsPanelProps = {}) {
   };
 
   return (
-    <div className="h-auto min-h-[210px] max-w-[1500px] mx-auto bg-primary py-6">
-      <div className="flex flex-wrap gap-4 justify-center items-center px-4">
+    <div className="h-[170px] max-w-[1500px] mx-auto bg-primary py-3 overflow-hidden">
+      <div className="flex gap-4 justify-center items-center px-4 h-full">
         {isLoading ? (
           <div className="flex flex-col items-center gap-2 py-8">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>

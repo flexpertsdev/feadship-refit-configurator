@@ -202,14 +202,14 @@ const SimplePaintPanel: React.FC<SimplePaintPanelProps> = ({ onColorChange }) =>
     );
     
     // Update selected paint type based on part's current type
-    const partType = currentYacht?.[`${part}_paint_type`];
+    const partType = currentYacht?.paint[part]?.type;
     if (partType) {
       setSelectedPaintType(partType);
     }
   };
   
   return (
-    <div className="h-[120px] pt-3 mx-auto divide-x divide-white/10 flex overflow-hidden">
+    <div className="h-[130px] pt-3 mx-auto divide-x divide-white/10 flex overflow-hidden">
       {/* Paint Type Filter */}
       <PaintTypeFilter 
         selectedPaintType={selectedPaintType}

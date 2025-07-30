@@ -46,7 +46,7 @@ const ExtensionCard: React.FC<ExtensionCardProps> = ({ extension, isSelected, on
   }, [extension.id, onSelect]);
   
   return (
-    <Card className="overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.01] shadow-[0_0_3.5px_0_rgba(0,0,0,0.2)] w-[280px] h-[175px] flex flex-col">
+    <Card className="overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.01] shadow-[0_0_3.5px_0_rgba(0,0,0,0.2)] w-[260px] h-[140px] flex flex-col">
       {extension.image && (
         <div className="flex-grow overflow-hidden cursor-pointer relative bg-gray-100">
           {!imageLoaded && (
@@ -73,11 +73,11 @@ const ExtensionCard: React.FC<ExtensionCardProps> = ({ extension, isSelected, on
         </div>
       )}
       
-      <CardContent className="p-4 mt-auto flex items-center justify-between bg-primary">
+      <CardContent className="p-3 mt-auto flex items-center justify-between bg-primary">
         <div className="flex-1 mr-2">
-          <h3 className="text-sm font-medium line-clamp-1 text-white">{extension.name}</h3>
+          <h3 className="text-xs font-medium line-clamp-1 text-white">{extension.name}</h3>
           {extension.description && (
-            <p className="text-xs text-gray-200 line-clamp-1">{extension.description}</p>
+            <p className="text-[10px] text-gray-200 line-clamp-1">{extension.description}</p>
           )}
         </div>
         <Button 

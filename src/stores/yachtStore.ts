@@ -105,12 +105,19 @@ export const useYachtStore = create<YachtState>()(
       },
       
       updateYacht: async (updates) => {
+        console.log('updateYacht called with:', updates);
         const { currentYacht } = get();
-        if (!currentYacht) return;
+        if (!currentYacht) {
+          console.log('No current yacht to update');
+          return;
+        }
         
         const updatedYacht = await updateYachtV2(currentYacht.id, updates);
         if (updatedYacht) {
+          console.log('Yacht updated successfully:', updatedYacht.active_level_2);
           set({ currentYacht: updatedYacht });
+        } else {
+          console.log('Failed to update yacht');
         }
       },
       
@@ -244,12 +251,14 @@ export const useYachtStore = create<YachtState>()(
       
       // Navigation state
       setNavigationState: async (level1, level2, level3) => {
+        console.log('setNavigationState called:', { level1, level2, level3 });
         const { updateYacht } = get();
         await updateYacht({
           active_level_1: level1,
           active_level_2: level2,
           active_level_3: level3
         });
+        console.log('setNavigationState completed');
       },
       
       // V1 Compatibility methods

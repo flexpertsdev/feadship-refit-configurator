@@ -22,6 +22,9 @@ const YachtPartSelector = ({ partColors, onPartSelect }: YachtPartSelectorProps)
   const { currentYacht } = useYachtStore();
   const activeLevel2 = currentYacht?.active_level_2 || null;
   
+  console.log('YachtPartSelector render - activeLevel2:', activeLevel2);
+  console.log('YachtPartSelector render - currentYacht?.active_level_2:', currentYacht?.active_level_2);
+  
   return (
     <div className="w-[12%] min-w-[160px] pl-2 tablet:pl-3 flex flex-col">
       <h3 className="text-xs font-bold text-white mb-2 flex-shrink-0">Yacht Parts</h3>

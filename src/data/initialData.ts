@@ -14,28 +14,28 @@ export const INITIAL_COLORS = [
     id: 'white-1',
     name: 'Pure White',
     color_string: '#FFFFFF',
-    color_group: 'White & Beiges',
+    color_group: 'whites-beiges',
     type: 'solid'
   },
   {
     id: 'white-2',
     name: 'Ice White',
     color_string: '#F8F8FF',
-    color_group: 'White & Beiges',
+    color_group: 'whites-beiges',
     type: 'solid'
   },
   {
     id: 'beige-1',
     name: 'Champagne',
     color_string: '#F7E7CE',
-    color_group: 'White & Beiges',
+    color_group: 'whites-beiges',
     type: 'solid'
   },
   {
     id: 'beige-2',
     name: 'Ivory',
     color_string: '#FFFFF0',
-    color_group: 'White & Beiges',
+    color_group: 'whites-beiges',
     type: 'solid'
   },
   
@@ -44,21 +44,21 @@ export const INITIAL_COLORS = [
     id: 'blue-1',
     name: 'Ocean Blue',
     color_string: '#006994',
-    color_group: 'Blues',
+    color_group: 'blues',
     type: 'solid'
   },
   {
     id: 'blue-2',
     name: 'Navy Blue',
     color_string: '#000080',
-    color_group: 'Blues',
+    color_group: 'blues',
     type: 'solid'
   },
   {
     id: 'blue-3',
     name: 'Sky Blue',
     color_string: '#87CEEB',
-    color_group: 'Blues',
+    color_group: 'blues',
     type: 'solid'
   },
   
@@ -67,21 +67,21 @@ export const INITIAL_COLORS = [
     id: 'gray-1',
     name: 'Silver Gray',
     color_string: '#C0C0C0',
-    color_group: 'Grays',
+    color_group: 'blacks-greys',
     type: 'solid'
   },
   {
     id: 'gray-2',
     name: 'Charcoal',
     color_string: '#36454F',
-    color_group: 'Grays',
+    color_group: 'blacks-greys',
     type: 'solid'
   },
   {
     id: 'gray-3',
     name: 'Gunmetal',
     color_string: '#2C3539',
-    color_group: 'Grays',
+    color_group: 'blacks-greys',
     type: 'solid'
   },
   
@@ -90,14 +90,14 @@ export const INITIAL_COLORS = [
     id: 'metallic-1',
     name: 'Silver Metallic',
     color_string: '#B8B8B8',
-    color_group: 'Metallics',
+    color_group: 'metallic',
     type: 'metallic'
   },
   {
     id: 'metallic-2',
     name: 'Gold Metallic',
     color_string: '#D4AF37',
-    color_group: 'Metallics',
+    color_group: 'metallic',
     type: 'metallic'
   }
 ];

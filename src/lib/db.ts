@@ -58,14 +58,14 @@ export function findColorGroupForColor(colorHex: string, allColors: Record<strin
   
   // Common color mappings as fallback
   const colorGroups: Record<string, string> = {
-    '#FFFFFF': 'Whites & Beiges',
-    '#FFF5E1': 'Whites & Beiges',
-    '#0A003E': 'Blues',
-    '#0085C7': 'Blues',
-    '#00A1C7': 'Blues',
-    '#FFD700': 'Reds, Oranges & Yellows',
-    '#36454F': 'Blacks & Greys',
-    '#228B22': 'Greens',
+    '#FFFFFF': 'whites-beiges',
+    '#FFF5E1': 'whites-beiges',
+    '#0A003E': 'blues',
+    '#0085C7': 'blues',
+    '#00A1C7': 'blues',
+    '#FFD700': 'reds-oranges-yellows',
+    '#36454F': 'blacks-greys',
+    '#228B22': 'greens',
   };
   
   return colorGroups[colorHex.toUpperCase()] || 'Custom Colors';

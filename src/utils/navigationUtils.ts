@@ -29,6 +29,19 @@ const COLOR_OPTIONS = [
 ];
 
 /**
+ * Map color display names to their IDs (matching paintColors.ts)
+ */
+const COLOR_ID_MAP: Record<string, string> = {
+  'Custom Colours': 'custom-colours',
+  'White & Beiges': 'whites-beiges',
+  'Golds & Browns': 'golds-browns',
+  'Black & Greys': 'blacks-greys',
+  'Blues': 'blues',
+  'Greens': 'greens',
+  'Reds, Oranges & Yellows': 'reds-oranges-yellows'
+};
+
+/**
  * Navigation Items – Full three‑level navigation tree
  */
 export const NAVIGATION_ITEMS: NavigationItem[] = [
@@ -68,7 +81,7 @@ export const NAVIGATION_ITEMS: NavigationItem[] = [
         parentId: 'PAINT',
         expandable: true,
         subItems: COLOR_OPTIONS.map((color) => ({
-          id: color.toLowerCase().replace(/\s/g, '-'),
+          id: COLOR_ID_MAP[color] || color.toLowerCase().replace(/[\s,&]+/g, '-'),
           name: color,
           level: 3,
           path: '/configurator',
@@ -84,7 +97,7 @@ export const NAVIGATION_ITEMS: NavigationItem[] = [
         parentId: 'PAINT',
         expandable: true,
         subItems: COLOR_OPTIONS.map((color) => ({
-          id: color.toLowerCase().replace(/\s/g, '-'),
+          id: COLOR_ID_MAP[color] || color.toLowerCase().replace(/[\s,&]+/g, '-'),
           name: color,
           level: 3,
           path: '/configurator',
@@ -100,7 +113,7 @@ export const NAVIGATION_ITEMS: NavigationItem[] = [
         parentId: 'PAINT',
         expandable: true,
         subItems: COLOR_OPTIONS.map((color) => ({
-          id: color.toLowerCase().replace(/\s/g, '-'),
+          id: COLOR_ID_MAP[color] || color.toLowerCase().replace(/[\s,&]+/g, '-'),
           name: color,
           level: 3,
           path: '/configurator',
@@ -116,7 +129,7 @@ export const NAVIGATION_ITEMS: NavigationItem[] = [
         parentId: 'PAINT',
         expandable: true,
         subItems: COLOR_OPTIONS.map((color) => ({
-          id: color.toLowerCase().replace(/\s/g, '-'),
+          id: COLOR_ID_MAP[color] || color.toLowerCase().replace(/[\s,&]+/g, '-'),
           name: color,
           level: 3,
           path: '/configurator',
@@ -132,7 +145,7 @@ export const NAVIGATION_ITEMS: NavigationItem[] = [
         parentId: 'PAINT',
         expandable: true,
         subItems: COLOR_OPTIONS.map((color) => ({
-          id: color.toLowerCase().replace(/\s/g, '-'),
+          id: COLOR_ID_MAP[color] || color.toLowerCase().replace(/[\s,&]+/g, '-'),
           name: color,
           level: 3,
           path: '/configurator',

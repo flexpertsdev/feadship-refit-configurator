@@ -26,13 +26,9 @@ export function getDefaultLevel2ForLevel1(level1: string): string | null {
 
 // Convert paint group to Level 3 navigation ID
 export function getLevel3FromPaintGroup(group: string): string {
-  // Normalize the group name to match navigation IDs
-  // 'Whites & Beiges' -> 'white-&-beiges'
-  // 'Custom Colors' -> 'custom-colours'
-  if (group.toLowerCase().includes('custom')) {
-    return 'custom-colours';
-  }
-  return group.toLowerCase().replace(/\s/g, '-');
+  // Paint groups are already normalized in v2 (e.g., 'whites-beiges', 'greens')
+  // Just return the group as-is since it should match navigation IDs
+  return group;
 }
 
 // Get paint group from yacht's current paint config for a part
@@ -48,10 +44,10 @@ export function getLevel3ForPaintPart(yacht: YachtConfigV2, part: string): strin
     // Default groups if no paint config exists (should not happen as yachts have defaults)
     const defaults: Record<string, string> = {
       'hull': 'greens', // Default hull is green
-      'superstructure': 'white-&-beiges',
-      'deckhouse': 'white-&-beiges',
-      'mast': 'white-&-beiges',
-      'bootstripe': 'white-&-beiges'
+      'superstructure': 'whites-beiges',
+      'deckhouse': 'whites-beiges',
+      'mast': 'whites-beiges',
+      'bootstripe': 'whites-beiges'
     };
     return defaults[part] || 'custom-colours';
   }

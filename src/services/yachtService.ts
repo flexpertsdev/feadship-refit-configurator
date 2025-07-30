@@ -57,31 +57,31 @@ export const createNewYacht = async (name: string = 'My Yacht', modelId: string 
         hull: {
           color: '#003321', // Jade Mist Green
           type: 'gloss',
-          group: 'Greens',
+          group: 'greens',
           name: 'Jade Mist Green'
         },
         superstructure: {
           color: '#FFFFFF',
           type: 'gloss',
-          group: 'Whites & Beiges',
+          group: 'whites-beiges',
           name: 'Pure White'
         },
         deckhouse: {
           color: '#FFFFFF',
           type: 'gloss',
-          group: 'Whites & Beiges',
+          group: 'whites-beiges',
           name: 'Pure White'
         },
         mast: {
           color: '#FFFFFF',
           type: 'gloss',
-          group: 'Whites & Beiges',
+          group: 'whites-beiges',
           name: 'Pure White'
         },
         bootstripe: {
           color: '#FFFFFF',
           type: 'gloss',
-          group: 'Whites & Beiges',
+          group: 'whites-beiges',
           name: 'Pure White'
         }
       },
@@ -228,31 +228,31 @@ export const migrateYachtToV2 = (oldYacht: any): YachtConfigV2 => {
       hull: {
         color: oldYacht.hull_paint_color || '#003321',
         type: oldYacht.hull_paint_type || 'gloss',
-        group: oldYacht.hull_paint_color_group || 'Greens',
+        group: oldYacht.hull_paint_color_group || 'greens',
         name: 'Hull Color'
       },
       superstructure: {
         color: oldYacht.superstructure_paint_color || '#FFFFFF',
         type: oldYacht.superstructure_paint_type || 'gloss',
-        group: oldYacht.superstructure_paint_color_group || 'Whites & Beiges',
+        group: oldYacht.superstructure_paint_color_group || 'whites-beiges',
         name: 'Superstructure Color'
       },
       deckhouse: {
         color: oldYacht.deckhouse_paint_color || '#FFFFFF',
         type: oldYacht.deckhouse_paint_type || 'gloss',
-        group: oldYacht.deckhouse_paint_color_group || 'Whites & Beiges',
+        group: oldYacht.deckhouse_paint_color_group || 'whites-beiges',
         name: 'Deckhouse Color'
       },
       mast: {
         color: oldYacht.mast_paint_color || '#FFFFFF',
         type: oldYacht.mast_paint_type || 'gloss',
-        group: oldYacht.mast_paint_color_group || 'Whites & Beiges',
+        group: oldYacht.mast_paint_color_group || 'whites-beiges',
         name: 'Mast Color'
       },
       bootstripe: {
         color: oldYacht.bootstripe_paint_color || '#FFFFFF',
         type: oldYacht.bootstripe_paint_type || 'gloss',
-        group: oldYacht.bootstripe_paint_color_group || 'Whites & Beiges',
+        group: oldYacht.bootstripe_paint_color_group || 'whites-beiges',
         name: 'Bootstripe Color'
       }
     },

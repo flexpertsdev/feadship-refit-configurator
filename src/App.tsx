@@ -33,6 +33,7 @@ import SummaryPage from "./pages/SummaryPage";
 import FontTestPage from "./pages/FontTestPage";
 import FontTestFirebase from "./pages/FontTestFirebase";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import DebugPanel from "./components/debug/DebugPanel";
 
 // Create a query client instance
 const queryClient = new QueryClient();
@@ -44,6 +45,9 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <TooltipProvider>
+            {/* Debug panel appears on all pages */}
+            <DebugPanel />
+            
             {/* Removed toast components */}
             <Routes>
               {/* Configurator pages without AppLayout */}

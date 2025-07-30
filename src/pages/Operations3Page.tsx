@@ -33,10 +33,10 @@ import { useNavigate } from 'react-router-dom';
 import { getNextNavigation } from '@/utils/navigationUtils';
 import { useYachtStore } from '@/stores/yachtStore';
 import NavigationBar from '@/components/navigation/NavigationBar';
+import LogoRow from '@/components/layout/LogoRow';
 import { ActionButton } from '@/components/ui/action-button';
 import ActivityGridView from '../components/operations/ActivityGridView';
 import { usePageConfig } from '../utils/usePageConfig';
-import '../styles/fonts.css';
 
 const Operations3Page = () => {
   const navigate = useNavigate();
@@ -62,6 +62,7 @@ const Operations3Page = () => {
 
   return (
     <div className="flex flex-col h-screen">
+      <LogoRow />
       <NavigationBar position="top" />
       <div className="flex-1 overflow-auto bg-primary">
         <div className="h-full flex flex-col">

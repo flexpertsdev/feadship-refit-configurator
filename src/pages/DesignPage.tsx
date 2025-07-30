@@ -11,10 +11,10 @@ import { useParams } from 'react-router-dom';
 import ContentLayout from '../components/layout/ContentLayout';
 import DesignSlider from '../components/design/DesignSlider';
 import NavigationBar from '@/components/navigation/NavigationBar';
+import LogoRow from '@/components/layout/LogoRow';
 import { useYachtStore } from '../stores/yachtStore';
 import { getDesignStyles } from '@/config';
 import { usePageConfig } from '../utils/usePageConfig';
-import '../styles/fonts.css';
 
 // Configuration for each design page variant
 const DESIGN_CONFIGS = {
@@ -78,6 +78,7 @@ const DesignPage = () => {
   
   return (
     <div className="flex flex-col h-screen">
+      <LogoRow />
       <NavigationBar position="top" />
       <div className="flex-1 overflow-auto">
         <ContentLayout

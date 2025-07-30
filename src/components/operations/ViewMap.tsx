@@ -8,24 +8,35 @@
 // ==================================================
 
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import WorldMap from './WorldMap';
 import { useYachtStore } from '../../stores/yachtStore';
 
 interface ViewMapProps {
   onLocationChange?: (locations: string[]) => Promise<void>;
+  onRouteChange?: (routes: string[]) => Promise<void>;
 }
 
-export function ViewMap({ onLocationChange }: ViewMapProps) {
+export function ViewMap({ onLocationChange, onRouteChange }: ViewMapProps) {
   const { currentYacht } = useYachtStore();
+  const [selectedRoutes, setSelectedRoutes] = useState<string[]>([]);
   
   // Get selected locations from the yacht store - convert from preferences
   const regionPreferences = currentYacht?.preferences.filter(id => id.startsWith('region_')) || [];
   const selectedLocations = regionPreferences.map(pref => {
-    // Convert region_caribbean back to Caribbean, region_south_pacific to South Pacific, etc
+    // Convert region_caribbean back to caribbean, region_south_pacific to south-pacific, etc
     const region = pref.replace('region_', '');
-    return region.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    return region.replace(/_/g, '-');
   });
+  
+  // Get selected routes from yacht preferences
+  useEffect(() => {
+    if (currentYacht) {
+      const routePreferences = currentYacht.preferences.filter(id => id.startsWith('route_'));
+      const routes = routePreferences.map(pref => pref.replace('route_', ''));
+      setSelectedRoutes(routes);
+    }
+  }, [currentYacht]);
   
   // Handle location selection
   const handleLocationSelect = async (locationId: string) => {
@@ -45,7 +56,35 @@ export function ViewMap({ onLocationChange }: ViewMapProps) {
     }
   };
   
-  return <WorldMap selectedLocations={selectedLocations} onLocationSelect={handleLocationSelect} />;
+  // Handle route selection
+  const handleRouteSelect = async (routeId: string) => {
+    if (!currentYacht) return;
+    
+    let updatedRoutes: string[];
+    
+    if (selectedRoutes.includes(routeId)) {
+      updatedRoutes = selectedRoutes.filter(id => id !== routeId);
+    } else {
+      updatedRoutes = [...selectedRoutes, routeId];
+    }
+    
+    setSelectedRoutes(updatedRoutes);
+    
+    // If there's an onRouteChange callback, call it
+    if (onRouteChange) {
+      await onRouteChange(updatedRoutes);
+    }
+  };
+  
+  return (
+    <WorldMap 
+      selectedLocations={selectedLocations} 
+      onLocationSelect={handleLocationSelect}
+      selectedRoutes={selectedRoutes}
+      onRouteSelect={handleRouteSelect}
+      showRoutes={true}
+    />
+  );
 }
 
 export default ViewMap;

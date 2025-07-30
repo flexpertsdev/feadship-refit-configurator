@@ -7,8 +7,9 @@
 // CRITICAL: YES - Core UI component for region selection, breaking this prevents geographical preference selection
 // ==================================================
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { queryHumanPreferences } from '@/config';
+import { YACHT_ROUTES } from '@/config/routesConfig';
 
 interface Location {
   id: string;
@@ -28,6 +29,9 @@ interface Location {
 interface WorldMapProps {
   selectedLocations: string[];
   onLocationSelect: (id: string) => void;
+  selectedRoutes?: string[];
+  onRouteSelect?: (id: string) => void;
+  showRoutes?: boolean;
 }
 
 // Get destinations from config
@@ -78,23 +82,102 @@ const LOCATIONS: Location[] = destinations
     clickRegion: LOCATION_POSITIONS[dest.id].clickRegion
   }));
 
-export const WorldMap: React.FC<WorldMapProps> = ({ selectedLocations, onLocationSelect }) => {
+export const WorldMap: React.FC<WorldMapProps> = ({ 
+  selectedLocations, 
+  onLocationSelect,
+  selectedRoutes = [],
+  onRouteSelect,
+  showRoutes = true
+}) => {
   const [hoveredLocation, setHoveredLocation] = useState<string | null>(null);
+  const [loadedRoutes, setLoadedRoutes] = useState<Record<string, { path: string; viewBox: string }>>({});
+  
+  // Load route SVG data
+  useEffect(() => {
+    if (showRoutes && selectedRoutes.length > 0) {
+      selectedRoutes.forEach(async (routeId) => {
+        const route = YACHT_ROUTES.find(r => r.id === routeId);
+        if (route && !loadedRoutes[routeId]) {
+          try {
+            const response = await fetch(route.svg);
+            const svgText = await response.text();
+            // Extract path data and viewBox from SVG
+            const parser = new DOMParser();
+            const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
+            const svgElement = svgDoc.querySelector('svg');
+            const path = svgDoc.querySelector('path');
+            
+            if (path && svgElement) {
+              const viewBox = svgElement.getAttribute('viewBox');
+              const pathData = path.getAttribute('d') || '';
+              
+              setLoadedRoutes(prev => ({
+                ...prev,
+                [routeId]: { path: pathData, viewBox: viewBox || '0 0 1182 580' }
+              }));
+            }
+          } catch (error) {
+            console.error(`Failed to load route ${routeId}:`, error);
+          }
+        }
+      });
+    }
+  }, [selectedRoutes, showRoutes]);
   
   const handleLocationClick = (id: string) => {
     onLocationSelect(id);
-    
-    // No toast notifications needed
   };
 
   return (
     <div className="relative w-full h-full">
-      {/* Map Background - Ensure it's at the bottom layer */}
-      <img
-        src="/assets/step4/Map.png"
-        alt="World Map"
-        className="absolute inset-0 w-full h-full object-contain z-0"
-      />
+      {/* SVG Container for map and routes */}
+      <svg 
+        viewBox="398.61357119769673 400.0000000000434 1181.8111788919487 579.1483761698679" 
+        className="absolute inset-0 w-full h-full"
+        preserveAspectRatio="xMidYMid meet"
+      >
+        {/* Map Background */}
+        <image
+          href="/assets/routes/Blue Map.svg"
+          x="398.61357119769673"
+          y="400.0000000000434"
+          width="1181.8111788919487"
+          height="579.1483761698679"
+          className="w-full h-full"
+        />
+        
+        {/* Route overlays */}
+        {showRoutes && selectedRoutes.map((routeId) => {
+          const routeData = loadedRoutes[routeId];
+          if (!routeData) return null;
+          
+          // Parse the route's viewBox to get its coordinate system
+          const [x, y, width, height] = (routeData.viewBox || '0 0 1182 580').split(' ').map(Number);
+          
+          return (
+            <g key={routeId} opacity={0.9}>
+              {/* Create a nested SVG with the route's coordinate system */}
+              <svg 
+                x={x} 
+                y={y} 
+                width={width} 
+                height={height}
+                viewBox={routeData.viewBox}
+                preserveAspectRatio="none"
+              >
+                <path
+                  d={routeData.path}
+                  stroke="#00a1c7"
+                  strokeWidth="3"
+                  fill="none"
+                  strokeDasharray="6 3"
+                  className="transition-all duration-300 hover:stroke-white"
+                />
+              </svg>
+            </g>
+          );
+        })}
+      </svg>
       
       {/* Location markers - Position above map */}
       {LOCATIONS.map((location) => (
@@ -159,6 +242,29 @@ export const WorldMap: React.FC<WorldMapProps> = ({ selectedLocations, onLocatio
           )}
         </div>
       ))}
+      
+      {/* Route Selection Panel */}
+      {showRoutes && onRouteSelect && (
+        <div className="absolute bottom-4 left-4 bg-white/10 backdrop-blur-sm rounded-lg p-4 max-w-xs">
+          <h3 className="text-white font-medium mb-3 text-sm">Select Routes</h3>
+          <div className="space-y-2 max-h-48 overflow-y-auto">
+            {YACHT_ROUTES.map((route) => (
+              <label
+                key={route.id}
+                className="flex items-center space-x-2 cursor-pointer hover:bg-white/10 p-2 rounded transition-colors"
+              >
+                <input
+                  type="checkbox"
+                  checked={selectedRoutes.includes(route.id)}
+                  onChange={() => onRouteSelect(route.id)}
+                  className="w-4 h-4 text-accent bg-white/20 border-white/30 rounded focus:ring-accent focus:ring-2"
+                />
+                <span className="text-white text-sm">{route.name}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

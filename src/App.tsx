@@ -29,6 +29,8 @@ import FeaturesPage from "./pages/FeaturesPage";
 import SustainabilityPage from "./pages/SustainabilityPage";
 import ServicesPage from "./pages/ServicesPage";
 import SummaryPage from "./pages/SummaryPage";
+import FontTestPage from "./pages/FontTestPage";
+import FontTestFirebase from "./pages/FontTestFirebase";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 // Create a query client instance
@@ -114,6 +116,10 @@ const App = () => {
                     <SummaryPage />
                   </ProtectedRoute>
                 } />
+                
+                {/* Font test pages - public access */}
+                <Route path="/font-test" element={<FontTestPage />} />
+                <Route path="/font-test-firebase" element={<FontTestFirebase />} />
                 
                 {/* 404 page */}
                 <Route path="*" element={<NotFound />} />

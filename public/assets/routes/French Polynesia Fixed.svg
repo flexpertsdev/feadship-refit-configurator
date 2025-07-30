@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="50" viewBox="1500 790 60 50">
+  <!-- French Polynesia - irregular circle, positioned east of Australasia but within map bounds -->
+  <path 
+    d="M 1505 810 
+       C 1505 800, 1515 795, 1525 798
+       C 1535 801, 1545 805, 1550 815
+       C 1555 825, 1553 830, 1545 835
+       C 1537 840, 1525 838, 1515 835
+       C 1505 832, 1502 825, 1505 810
+       Z"
+    stroke="#fff"
+    stroke-width="0.5"
+    stroke-dasharray="2 1"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+    fill="none"
+    data-name="French Polynesia"
+  />
+</svg>

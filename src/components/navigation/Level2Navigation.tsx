@@ -58,7 +58,7 @@ const Level2Navigation = forwardRef<HTMLDivElement, Level2NavigationProps>(({
               <Link 
                 to={item.path} 
                 className={`
-                  ${THEME.spacing.level2Padding} ${THEME.fontSize.level2} whitespace-nowrap uppercase font-medium
+                  ${THEME.spacing.level2Padding} ${THEME.fontSize.level2} whitespace-nowrap uppercase font-book
                   ${THEME.transitions.default} relative mx-0.5
                   ${isActive ? 
                     `border-b-[${THEME.borderWidth.active}] border-accent bg-primary-light` : 

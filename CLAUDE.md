@@ -2,45 +2,23 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## 🎯 Project Overview
+## Project Overview
 
-This is a React + TypeScript web application for configuring luxury yachts, built with Vite and using shadcn/ui components. The app provides a multi-step yacht configuration flow with 3D visualization, paint customization, and comprehensive feature selection.
+Feadship Refit Configurator - A React TypeScript application for configuring luxury yacht refits through a multi-step design flow with 3D visualization, paint customization, and comprehensive feature selection.
 
-## 📁 Key Architecture
-
-```
-src/
-├── components/         # Reusable UI components
-│   ├── configurator/  # 3D yacht configurator with paint/extensions
-│   ├── design/        # Design preference sliders
-│   ├── features/      # Feature selection grid views
-│   ├── navigation/    # Navigation components (Level1/Level2)
-│   ├── operations/    # Operational preferences (voyage, activities)
-│   ├── summary/       # Final summary page sections
-│   └── ui/           # shadcn/ui base components
-├── config/           # Configuration files for features and preferences
-├── context/          # React contexts (Auth)
-├── data/            # Static data files (colors, activities, models)
-├── hooks/           # Custom React hooks
-├── pages/           # Route components
-├── services/        # Data persistence services
-├── stores/          # Zustand state management
-└── types/           # TypeScript type definitions
-```
-
-## 🛠️ Development Commands
+## Development Commands
 
 ```bash
 # Install dependencies
 npm install
 
-# Run development server
+# Start development server (runs on port 5173)
 npm run dev
 
 # Build for production
 npm run build
 
-# Build for development (includes source maps)
+# Build for development with source maps
 npm run build:dev
 
 # Preview production build
@@ -50,86 +28,105 @@ npm run preview
 npm run lint
 ```
 
-## 🏗️ Critical Patterns
+Note: No test framework is currently configured.
+
+## Architecture Overview
 
 ### State Management
-- **Zustand** for global yacht configuration state (`yachtStore.ts`)
-- State persists to localStorage automatically
-- All configuration changes flow through the store
+- **Zustand** for global state management
+- Primary store: `yachtStore.ts` - Manages yacht configuration, features, preferences, paint colors
+- Navigation store: `navigationStore.ts` - Manages 2-level hierarchical navigation state
 
-### Navigation Flow
-- Multi-step wizard pattern with protected routes
-- Level 1 (top nav) and Level 2 (sub-navigation) hierarchy
-- Routes require authentication after splash page
+### Routing Structure
+- React Router with protected routes
+- Main layout wrapper (`AppLayout`) for most pages
+- Configurator page (`/configurator`) renders without layout
+- Authentication managed via `AuthContext` and `ProtectedRoute` component
 
 ### Data Persistence
-- `localStorageService.ts` handles all persistence
+- LocalStorage for data persistence
+- Services in `/services` directory handle data operations
 - Yacht configurations saved with unique IDs
-- Summary data cached for performance
 
-### Component Architecture
-- Heavily composable with shadcn/ui primitives
-- Mobile-responsive with Tailwind breakpoints
-- Components accept `className` prop for styling overrides
+### Navigation Hierarchy
+1. **Level 1**: Main sections (DESIGN, OPERATIONS, PAINT, etc.)
+2. **Level 2**: Sub-sections within each main section
+
+### Component Organization
+```
+src/components/
+├── configurator/   # 3D yacht viewer with paint/extensions
+├── design/        # Design preference sliders
+├── features/      # Feature selection cards and grids
+├── navigation/    # Multi-level navigation components
+├── operations/    # Maps and activity selection
+├── summary/       # Summary page sections
+├── ui/            # shadcn-ui components
+└── auth/          # Authentication components
+```
+
+## Key Technical Details
+
+### TypeScript Configuration
+- Path alias `@/` maps to `./src/`
+- Relaxed TypeScript settings (no implicit any, unused params allowed)
+- Separate configs for app and node environments
+
+### Styling
+- Tailwind CSS with custom configuration
+- shadcn-ui component library
+- Feadship brand colors and custom font (Gotham HTF)
+- Mobile-first responsive design with custom breakpoints
+
+### External Dependencies
+- Arcware Cloud PixelStreaming WebSDK for 3D yacht visualization
+- Lucide React for icons
+- Radix UI primitives via shadcn-ui
+- React Query for data fetching
+- React Hook Form with Zod validation
+
+### Asset Management
+- Static assets in `public/assets/`
+- Route maps and images organized by feature
+- Combined SVG route maps in operations
+
+## Common Patterns
+
+### Feature Selection
+- Feature configs stored in `yacht-features.ts`
+- Features grouped by categories with metadata
+- Selection managed through Zustand store
 
 ### Paint System
-- Complex color selection with yacht part targeting
-- Paint types: Standard, Metallic, Special Effect, Custom
-- Colors mapped to hex values in `paintColors.ts`
+- Color library in `paintColors.ts` and `colorLibrary.json`
+- Paint configs include color, type, name, and group
+- Custom colors stored per yacht configuration
+- Real-time 3D updates via WebSocket
 
-### 3D Integration
-- PixelStreaming WebSDK for Unreal Engine integration
-- WebSocket communication for real-time updates
-- Loading states and error boundaries implemented
+### Design Preferences
+- Three design axes: complexity, style/radical, traditional
+- Values range from 0-4 (5 levels)
+- Stored as preferences in yacht configuration
 
-## 🔑 Key Dependencies
+### Navigation Flow
+1. Splash → Auth → Home
+2. Design selection
+3. Operations (locations, activities)
+4. Features, Paint
+5. Summary page
 
-- **React 18** with React Router v6
-- **Vite** as build tool with SWC
-- **TypeScript** (relaxed settings: `noImplicitAny: false`)
-- **shadcn/ui** components with Radix UI
-- **Tailwind CSS** for styling
-- **Zustand** for state management
-- **React Query** for data fetching
-- **React Hook Form** with Zod validation
-- **PixelStreaming WebSDK** for 3D visualization
+## Important Notes
 
-## 📝 Important Files
+- Case sensitivity in navigation items requires attention
+- Z-index layering for overlapping components (especially maps)
+- TypeScript relaxed settings allow rapid development but may hide issues
+- 3D viewer requires WebSocket connection to Unreal Engine server
+- Mobile-first approach with touch-optimized interactions
 
-- `App.tsx` - Main routing and provider setup
-- `stores/yachtStore.ts` - Central state management
-- `config/yacht-features.ts` - Feature configuration matrix
-- `services/localStorageService.ts` - Data persistence layer
-- `components/configurator/PixelStreamingView.tsx` - 3D viewer integration
+## Files to Reference
 
-## ⚠️ TypeScript Configuration
-
-The project uses relaxed TypeScript settings:
-- `noImplicitAny: false`
-- `strictNullChecks: false`
-- `noUnusedLocals: false`
-- `noUnusedParameters: false`
-
-This allows for rapid development but may hide potential issues.
-
-## 🎨 Styling Approach
-
-- Tailwind CSS for utility classes
-- CSS custom properties for theming
-- `cn()` utility for conditional classes
-- Component-specific styles in `.module.css` files where needed
-- Mobile-first responsive design
-
-## 🔐 Authentication
-
-- Context-based auth (`AuthContext.tsx`)
-- Protected routes require authentication
-- Demo mode with hardcoded users (user@example.com / admin@example.com)
-- Session persists in localStorage
-
-## 📱 Responsive Design
-
-- Mobile-first approach
-- Breakpoints: sm (640px), md (768px), lg (1024px), xl (1280px)
-- Touch-optimized interactions
-- Responsive navigation (mobile drawer pattern)
+- Navigation theme: `src/components/navigation/navigationTheme.ts`
+- Yacht data types: `src/types/yacht.types.ts`
+- Feature configurations: `src/config/yacht-features.ts`
+- Paint management: `src/hooks/usePaintManager.ts`
+- 3D integration: `src/components/configurator/PixelStreamingView.tsx`

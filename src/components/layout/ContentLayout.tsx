@@ -13,7 +13,6 @@ import { useNavigate } from 'react-router-dom';
 import { useYachtStore } from '@/stores/yachtStore';
 import { getNextNavigation } from '@/utils/navigationUtils';
 import { ActionButton } from '@/components/ui/action-button';
-import '../../styles/fonts.css';
 import { cn } from '@/lib/utils';
 
 interface ContentLayoutProps {

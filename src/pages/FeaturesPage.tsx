@@ -40,6 +40,7 @@
 
 import React from 'react';
 import NavigationBar from '@/components/navigation/NavigationBar';
+import LogoRow from '@/components/layout/LogoRow';
 import ContentLayout from '../components/layout/ContentLayout';
 import FeatureGridView from '../components/features/FeatureGridView';
 import { useFeatureConfig } from '../utils/featureConfigUtils';
@@ -53,6 +54,7 @@ const FeaturesPage = () => {
   
   return (
     <div className="flex flex-col h-screen">
+      <LogoRow />
       <NavigationBar position="top" />
       <div className="flex-1 overflow-auto">
         <ContentLayout

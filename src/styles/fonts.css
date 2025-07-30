@@ -1,18 +1,48 @@
-/* ==================================================
- * AI EXPLANATION: fonts.css
- * ==================================================
- * WHAT: This file contains fonts.css
- * WHY: This file provides standalone functionality
- * USED BY: No direct dependencies found
- * CRITICAL: NO - Safe to modify with caution
- * ==================================================
- */
+/* Gotham HTF Font Family - Complete Set */
 
-
-/* Gotham HTF Font Family */
+/* Thin (100) */
 @font-face {
   font-family: 'Gotham HTF';
-  src: url('/assets/fonts/gotham-light-webfont.woff') format('woff');
+  src: url('/assets/fonts/gotham-thin-webfont.woff2') format('woff2'),
+       url('/assets/fonts/gotham-thin-webfont.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham HTF';
+  src: url('/assets/fonts/gotham-thinitalic-webfont.woff2') format('woff2'),
+       url('/assets/fonts/gotham-thinitalic-webfont.woff') format('woff');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Extra Light (200) */
+@font-face {
+  font-family: 'Gotham HTF';
+  src: url('/assets/fonts/gotham-xlight-webfont.woff2') format('woff2'),
+       url('/assets/fonts/gotham-xlight-webfont.woff') format('woff');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham HTF';
+  src: url('/assets/fonts/gotham-xlightitalic-webfont.woff2') format('woff2'),
+       url('/assets/fonts/gotham-xlightitalic-webfont.woff') format('woff');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Light (300) */
+@font-face {
+  font-family: 'Gotham HTF';
+  src: url('/assets/fonts/gotham-light-webfont.woff2') format('woff2'),
+       url('/assets/fonts/gotham-light-webfont.woff') format('woff');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -20,7 +50,18 @@
 
 @font-face {
   font-family: 'Gotham HTF';
-  src: url('/assets/fonts/gotham-book-webfont.woff') format('woff');
+  src: url('/assets/fonts/gotham-lightitalic-webfont.woff2') format('woff2'),
+       url('/assets/fonts/gotham-lightitalic-webfont.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Book/Regular (400) */
+@font-face {
+  font-family: 'Gotham HTF';
+  src: url('/assets/fonts/gotham-book-webfont.woff2') format('woff2'),
+       url('/assets/fonts/gotham-book-webfont.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -28,7 +69,18 @@
 
 @font-face {
   font-family: 'Gotham HTF';
-  src: url('/assets/fonts/gotham-medium-webfont.woff') format('woff');
+  src: url('/assets/fonts/gotham-bookitalic-webfont.woff2') format('woff2'),
+       url('/assets/fonts/gotham-bookitalic-webfont.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Medium (500) */
+@font-face {
+  font-family: 'Gotham HTF';
+  src: url('/assets/fonts/gotham-medium-webfont.woff2') format('woff2'),
+       url('/assets/fonts/gotham-medium-webfont.woff') format('woff');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -36,7 +88,18 @@
 
 @font-face {
   font-family: 'Gotham HTF';
-  src: url('/assets/fonts/gotham-bold-webfont.woff') format('woff');
+  src: url('/assets/fonts/gotham-mediumitalic-webfont.woff2') format('woff2'),
+       url('/assets/fonts/gotham-mediumitalic-webfont.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Bold (700) */
+@font-face {
+  font-family: 'Gotham HTF';
+  src: url('/assets/fonts/gotham-bold-webfont.woff2') format('woff2'),
+       url('/assets/fonts/gotham-bold-webfont.woff') format('woff');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -44,8 +107,47 @@
 
 @font-face {
   font-family: 'Gotham HTF';
-  src: url('/assets/fonts/gotham-black-webfont.woff2') format('woff2');
+  src: url('/assets/fonts/gotham-bolditalic-webfont.woff2') format('woff2'),
+       url('/assets/fonts/gotham-bolditalic-webfont.woff') format('woff');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Black (900) */
+@font-face {
+  font-family: 'Gotham HTF';
+  src: url('/assets/fonts/gotham-black-webfont.woff2') format('woff2'),
+       url('/assets/fonts/gotham-black-webfont.woff') format('woff');
   font-weight: 900;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham HTF';
+  src: url('/assets/fonts/gotham-blackitalic-webfont.woff2') format('woff2'),
+       url('/assets/fonts/gotham-blackitalic-webfont.woff') format('woff');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Ultra (800) - Using 800 for better browser compatibility */
+@font-face {
+  font-family: 'Gotham HTF';
+  src: url('/assets/fonts/gotham-ultra-webfont.woff2') format('woff2'),
+       url('/assets/fonts/gotham-ultra-webfont.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham HTF';
+  src: url('/assets/fonts/gotham-ultraitalic-webfont.woff2') format('woff2'),
+       url('/assets/fonts/gotham-ultraitalic-webfont.woff') format('woff');
+  font-weight: 800;
+  font-style: italic;
   font-display: swap;
 }

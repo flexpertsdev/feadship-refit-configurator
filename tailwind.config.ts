@@ -145,8 +145,8 @@ export default {
 				book: '400',
 				medium: '500',
 				bold: '700',
+				ultra: '800',
 				black: '900',
-				ultra: '950',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

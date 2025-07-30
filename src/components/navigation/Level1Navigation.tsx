@@ -22,7 +22,8 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Menu, X } from 'lucide-react';
-import { NAVIGATION_ITEMS } from '../../utils/navigationUtils';
+// Temporarily using V2 for testing
+import { NAVIGATION_ITEMS } from '../../utils/navigationUtilsV2';
 import { getDefaultLevel2ForLevel1, getLevel3ForPaintPart } from '../../utils/navigationHelpers';
 import { useYachtStore } from '../../stores/yachtStore';
 import { Button } from "../ui/button";

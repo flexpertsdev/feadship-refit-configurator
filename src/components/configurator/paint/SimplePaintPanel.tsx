@@ -34,6 +34,7 @@ import SimpleColorSwatches from './SimpleColorSwatches';
 import PaintTypeFilter from './PaintTypeFilter';
 import YachtPartSelector from './YachtPartSelector';
 import ColorPicker from './ColorPicker';
+import ColorDetailsPanel from './ColorDetailsPanel';
 
 interface SimplePaintPanelProps {
   onColorChange?: (part: string, color: string, type: string, name: string, group?: string) => void;
@@ -171,28 +172,21 @@ const SimplePaintPanel: React.FC<SimplePaintPanelProps> = ({ onColorChange }) =>
     }
   };
   
-  // Get part colors for the yacht part selector
+  // Get part colors from V2 yacht paint configuration
   const partColors = useMemo(() => {
-    if (!currentYacht) return {};
+    if (!currentYacht?.paint) return {};
     
     const colors: Record<string, any> = {};
-    const parts = ['hull', 'superstructure', 'deckhouse', 'mast', 'bootstripe'];
+    const parts = ['hull', 'superstructure', 'deckhouse', 'mast', 'bootstripe'] as const;
     
     parts.forEach(part => {
-      const colorKey = `${part}_paint_color`;
-      const typeKey = `${part}_paint_type`;
-      
-      if (currentYacht[colorKey]) {
-        colors[part] = {
-          color: currentYacht[colorKey],
-          type: currentYacht[typeKey] || 'gloss',
-          name: 'Color'
-        };
+      if (currentYacht.paint[part]) {
+        colors[part] = currentYacht.paint[part];
       }
     });
     
     return colors;
-  }, [currentYacht]);
+  }, [currentYacht?.paint]);
   
   // Handle part selection
   const handlePartSelect = (part: string) => {
@@ -240,6 +234,12 @@ const SimplePaintPanel: React.FC<SimplePaintPanelProps> = ({ onColorChange }) =>
           onColorSelect={handleColorSelect}
         />
       </div>
+      
+      {/* Color Details Panel */}
+      <ColorDetailsPanel
+        paintConfig={activeLevel2 && currentYacht?.paint ? currentYacht.paint[activeLevel2 as keyof typeof currentYacht.paint] : null}
+        partName={activeLevel2 || ''}
+      />
       
       {/* Yacht Part Selector */}
       <YachtPartSelector

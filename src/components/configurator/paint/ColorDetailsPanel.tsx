@@ -19,9 +19,9 @@ interface ColorDetailsPanelProps {
 const ColorDetailsPanel: React.FC<ColorDetailsPanelProps> = ({ paintConfig, partName }) => {
   if (!paintConfig) {
     return (
-      <div className="w-[18%] min-w-[200px] px-4 border-r border-white/10">
-        <h3 className="text-xs font-bold text-white mb-3">Color Details</h3>
-        <div className="text-white/40 text-sm">
+      <div className="w-[20%] min-w-[240px] px-4 border-r border-white/10">
+        <h3 className="text-xs font-bold text-white mb-2">Color Details</h3>
+        <div className="text-white/40 text-xs">
           No color selected
         </div>
       </div>
@@ -32,42 +32,42 @@ const ColorDetailsPanel: React.FC<ColorDetailsPanelProps> = ({ paintConfig, part
   const groupDisplayName = colorGroups[paintConfig.group as keyof typeof colorGroups] || paintConfig.group;
 
   return (
-    <div className="w-[18%] min-w-[200px] px-4 border-r border-white/10">
-      <h3 className="text-xs font-bold text-white mb-3">Color Details</h3>
+    <div className="w-[20%] min-w-[240px] px-4 border-r border-white/10">
+      <h3 className="text-xs font-bold text-white mb-2">Color Details</h3>
       
-      {/* Color Swatch */}
-      <div className="mb-4">
+      <div className="flex gap-3">
+        {/* Color Swatch */}
         <div 
-          className="w-[80px] h-[80px] rounded-lg border-2 border-white/20 shadow-lg"
+          className="w-[60px] h-[60px] rounded-md border border-white/20 shadow-lg flex-shrink-0"
           style={{ backgroundColor: paintConfig.color }}
         />
-      </div>
-      
-      {/* Color Information */}
-      <div className="space-y-2 text-sm">
-        <div>
-          <span className="text-white/60">Part:</span>
-          <span className="text-white ml-2 capitalize">{partName}</span>
-        </div>
         
-        <div>
-          <span className="text-white/60">Name:</span>
-          <span className="text-white ml-2">{paintConfig.name}</span>
-        </div>
-        
-        <div>
-          <span className="text-white/60">Hex:</span>
-          <span className="text-white ml-2 font-mono text-xs">{paintConfig.color.toUpperCase()}</span>
-        </div>
-        
-        <div>
-          <span className="text-white/60">Type:</span>
-          <span className="text-white ml-2 capitalize">{paintConfig.type}</span>
-        </div>
-        
-        <div>
-          <span className="text-white/60">Group:</span>
-          <span className="text-white ml-2 text-xs">{groupDisplayName}</span>
+        {/* Color Information */}
+        <div className="space-y-1 text-xs flex-1">
+          <div className="flex justify-between">
+            <span className="text-white/60">Part:</span>
+            <span className="text-white capitalize">{partName}</span>
+          </div>
+          
+          <div className="flex justify-between">
+            <span className="text-white/60">Name:</span>
+            <span className="text-white">{paintConfig.name}</span>
+          </div>
+          
+          <div className="flex justify-between">
+            <span className="text-white/60">Hex:</span>
+            <span className="text-white font-mono">{paintConfig.color.toUpperCase()}</span>
+          </div>
+          
+          <div className="flex justify-between">
+            <span className="text-white/60">Type:</span>
+            <span className="text-white capitalize">{paintConfig.type}</span>
+          </div>
+          
+          <div className="flex justify-between">
+            <span className="text-white/60">Group:</span>
+            <span className="text-white">{groupDisplayName}</span>
+          </div>
         </div>
       </div>
     </div>

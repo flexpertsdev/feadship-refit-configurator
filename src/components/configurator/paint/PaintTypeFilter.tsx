@@ -18,9 +18,9 @@ interface PaintTypeFilterProps {
 
 const PaintTypeFilter = ({ selectedPaintType, onPaintTypeSelect }: PaintTypeFilterProps) => {
   return (
-    <div className="w-[10%] min-w-[80px] tablet:min-w-[100px] pl-2 pr-2">
-      <h3 className="text-2xs tablet:text-xs ipad:text-sm hd:text-[13px] font-bold text-white mb-2 tablet:mb-3">Paint Type</h3>
-      <div className="space-y-1 tablet:space-y-2">
+    <div className="w-[10%] min-w-[80px] pl-2 pr-2">
+      <h3 className="text-xs font-bold text-white mb-2">Paint Type</h3>
+      <div className="space-y-1">
         {Object.keys(PAINT_TYPE_MAP).map(type => (
           <button 
             key={type}
@@ -29,10 +29,10 @@ const PaintTypeFilter = ({ selectedPaintType, onPaintTypeSelect }: PaintTypeFilt
               selectedPaintType === type ? 'text-white' : 'text-white/60 hover:text-white/80'
             }`}
           >
-            <div className={`w-2 h-2 tablet:w-3 tablet:h-3 rounded-full mr-1 tablet:mr-2 transition-colors ${
+            <div className={`w-2 h-2 rounded-full mr-1.5 transition-colors ${
               selectedPaintType === type ? 'bg-accent' : 'bg-white/20 group-hover:bg-white/30'
             }`} />
-            <span className="capitalize text-2xs tablet:text-xs ipad:text-sm hd:text-[13px]">{type}</span>
+            <span className="capitalize text-xs">{type}</span>
           </button>
         ))}
       </div>

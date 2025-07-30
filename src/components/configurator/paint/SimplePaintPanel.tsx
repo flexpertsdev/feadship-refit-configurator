@@ -209,7 +209,7 @@ const SimplePaintPanel: React.FC<SimplePaintPanelProps> = ({ onColorChange }) =>
   };
   
   return (
-    <div className="min-h-[160px] h-auto pt-4 mx-auto divide-x divide-white/10 flex">
+    <div className="h-[120px] pt-3 mx-auto divide-x divide-white/10 flex overflow-hidden">
       {/* Paint Type Filter */}
       <PaintTypeFilter 
         selectedPaintType={selectedPaintType}
@@ -226,8 +226,8 @@ const SimplePaintPanel: React.FC<SimplePaintPanelProps> = ({ onColorChange }) =>
       )}
       
       {/* Color Swatches */}
-      <div className="flex-1 px-4 overflow-hidden flex flex-col">
-        <h3 className="text-xs font-bold text-white mb-2 flex-shrink-0">Color Selection</h3>
+      <div className="flex-1 px-3 overflow-hidden flex flex-col">
+        <h3 className="text-xs font-bold text-white mb-1 flex-shrink-0">Color Selection</h3>
         <SimpleColorSwatches
           colors={filteredColors}
           selectedPaintType={selectedPaintType}

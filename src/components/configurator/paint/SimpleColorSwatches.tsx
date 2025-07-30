@@ -50,16 +50,16 @@ const SimpleColorSwatches: React.FC<SimpleColorSwatchesProps> = ({
   };
   
   return (
-    <div className="flex gap-3 overflow-x-auto py-2 scrollbar-none flex-1">
+    <div className="flex gap-2 overflow-x-auto py-1 scrollbar-none flex-1">
       {colors.map(color => (
         <button
           key={color.id}
           onClick={() => onColorSelect(color)}
           className={`
-            relative flex-shrink-0 w-[35px] h-[70px] rounded-md 
-            transition-all duration-300 hover:scale-105
+            relative flex-shrink-0 w-[30px] h-[50px] rounded 
+            transition-all duration-200 hover:scale-105
             ${isColorSelected(color) 
-              ? 'ring-2 ring-blue-400 ring-offset-2 ring-offset-primary shadow-lg shadow-blue-400/50' 
+              ? 'ring-2 ring-blue-400 ring-offset-1 ring-offset-primary shadow-md' 
               : 'hover:ring-1 hover:ring-white/50'
             }
           `}

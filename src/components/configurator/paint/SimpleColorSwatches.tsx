@@ -8,7 +8,7 @@
 // ==================================================
 
 import React from 'react';
-import { PaintColor, normalizeString } from '@/data/paintColors';
+import { PaintColor } from '@/data/paintColors';
 import { useYachtStore } from '@/stores/yachtStore';
 
 interface SimpleColorSwatchesProps {
@@ -29,13 +29,13 @@ const SimpleColorSwatches: React.FC<SimpleColorSwatchesProps> = ({
   const getCurrentPartColor = () => {
     if (!currentYacht || !activeLevel2) return null;
     
-    const part = normalizeString(activeLevel2);
+    const part = activeLevel2;
     const colorKey = `${part}_paint_color`;
     const typeKey = `${part}_paint_type`;
     
     return {
       hex: currentYacht[colorKey]?.toLowerCase(),
-      type: normalizeString(currentYacht[typeKey] || '')
+      type: currentYacht[typeKey] || ''
     };
   };
   
@@ -45,12 +45,12 @@ const SimpleColorSwatches: React.FC<SimpleColorSwatchesProps> = ({
   const isColorSelected = (color: PaintColor): boolean => {
     if (!currentPartColor) return false;
     
-    return normalizeString(color.hex) === normalizeString(currentPartColor.hex || '') &&
-           normalizeString(color.type) === normalizeString(currentPartColor.type);
+    return color.hex.toLowerCase() === (currentPartColor.hex || '').toLowerCase() &&
+           color.type === currentPartColor.type;
   };
   
   return (
-    <div className="flex gap-3 overflow-x-auto py-2 scrollbar-none">
+    <div className="flex gap-3 overflow-x-auto py-2 scrollbar-none flex-1">
       {colors.map(color => (
         <button
           key={color.id}

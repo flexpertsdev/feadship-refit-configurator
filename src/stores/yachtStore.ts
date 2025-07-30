@@ -20,6 +20,7 @@ import {
   getDesignLevelFromPreferences,
   setDesignLevelInPreferences
 } from '@/data/preferences-library';
+import { getLevel3FromPaintGroup } from '@/utils/navigationHelpers';
 
 interface YachtState {
   currentYacht: YachtConfigV2 | null;
@@ -300,6 +301,14 @@ export const useYachtStore = create<YachtState>()(
           name,
           group: colorGroup || 'Custom Colors'
         });
+        
+        // If we're currently on the paint page for this part, update Level 3
+        const { currentYacht } = get();
+        if (currentYacht?.active_level_1 === 'PAINT' && 
+            currentYacht?.active_level_2 === part) {
+          const level3 = getLevel3FromPaintGroup(colorGroup || 'Custom Colors');
+          await get().setNavigationState('PAINT', part, level3);
+        }
       },
       
       resetDesignLevels: () => {

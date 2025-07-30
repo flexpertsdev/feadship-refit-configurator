@@ -26,7 +26,9 @@
 
 import React, { useMemo } from 'react';
 import { useYachtStore } from '@/stores/yachtStore';
-import { PAINT_COLORS, getFilteredColors, normalizeString, PaintColor } from '@/data/paintColors';
+import { paintColors, getFilteredColors, PaintColor } from '@/data/paintColors';
+import { PAINT_TYPE_MAP } from '@/types/paint';
+import { getLevel3ForPaintPart } from '@/utils/navigationHelpers';
 import { hslToHex } from './utils';
 import SimpleColorSwatches from './SimpleColorSwatches';
 import PaintTypeFilter from './PaintTypeFilter';
@@ -44,7 +46,7 @@ const SimplePaintPanel: React.FC<SimplePaintPanelProps> = ({ onColorChange }) =>
   const activeLevel2 = currentYacht?.active_level_2 || null;
   const activeLevel3 = currentYacht?.active_level_3 || null;
   
-  const [selectedPaintType, setSelectedPaintType] = React.useState('gloss');
+  const [selectedPaintType, setSelectedPaintType] = React.useState('gloss'); // UI value
   const [customColor, setCustomColor] = React.useState('#FFFFFF');
   
   // Get custom colors from yacht
@@ -58,7 +60,7 @@ const SimplePaintPanel: React.FC<SimplePaintPanelProps> = ({ onColorChange }) =>
       
       // Filter by selected paint type
       return colors.filter((color: PaintColor) => 
-        normalizeString(color.type) === normalizeString(selectedPaintType)
+        color.type === selectedPaintType
       );
     } catch (e) {
       console.error('Error parsing custom colors:', e);
@@ -72,14 +74,26 @@ const SimplePaintPanel: React.FC<SimplePaintPanelProps> = ({ onColorChange }) =>
     if (activeLevel3 === 'custom-colours') {
       return customColors;
     }
-    return getFilteredColors(activeLevel3, selectedPaintType);
+    
+    // Map UI paint type to data types using PAINT_TYPE_MAP
+    const mappedTypes = PAINT_TYPE_MAP[selectedPaintType] || [selectedPaintType];
+    
+    // Filter colors by group and type
+    let colors = paintColors;
+    if (activeLevel3) {
+      colors = colors.filter(color => color.group === activeLevel3);
+    }
+    if (mappedTypes.length > 0) {
+      colors = colors.filter(color => mappedTypes.includes(color.type));
+    }
+    return colors;
   }, [activeLevel3, selectedPaintType, customColors]);
   
   // Handle color selection
   const handleColorSelect = async (color: PaintColor) => {
     if (!activeLevel2) return;
     
-    const part = normalizeString(activeLevel2);
+    const part = activeLevel2;
     
     // Update yacht store
     await updateYachtColor(part, color.hex, color.type, color.name, color.group);
@@ -116,7 +130,7 @@ const SimplePaintPanel: React.FC<SimplePaintPanelProps> = ({ onColorChange }) =>
       id: `custom-${Date.now()}`,
       name: `Custom ${customCount + 1}`,
       hex: hexColor,
-      type: selectedPaintType as 'gloss' | 'matte' | 'metallic',
+      type: (PAINT_TYPE_MAP[selectedPaintType]?.[0] || selectedPaintType) as 'glossy' | 'matte' | 'metallic',
       group: 'custom-colours'
     };
     
@@ -138,7 +152,7 @@ const SimplePaintPanel: React.FC<SimplePaintPanelProps> = ({ onColorChange }) =>
     
     if (!activeLevel2) return;
     
-    const part = normalizeString(activeLevel2);
+    const part = activeLevel2;
     const paintType = selectedPaintType;
     
     // Convert HSL to hex if needed
@@ -182,22 +196,26 @@ const SimplePaintPanel: React.FC<SimplePaintPanelProps> = ({ onColorChange }) =>
   
   // Handle part selection
   const handlePartSelect = (part: string) => {
+    
+    // Get the appropriate Level 3 based on the part's current paint color group
+    const level3 = currentYacht ? getLevel3ForPaintPart(currentYacht, part) : 'custom-colours';
+    
     // Update navigation state in yacht config
     setNavigationState(
       currentYacht?.active_level_1 || 'PAINT',
-      normalizeString(part),
-      activeLevel3
+      part,
+      level3
     );
     
     // Update selected paint type based on part's current type
-    const partType = currentYacht?.[`${normalizeString(part)}_paint_type`];
+    const partType = currentYacht?.[`${part}_paint_type`];
     if (partType) {
-      setSelectedPaintType(normalizeString(partType));
+      setSelectedPaintType(partType);
     }
   };
   
   return (
-    <div className="h-[160px] pt-4 mx-auto divide-x divide-white/10 overflow-hidden flex">
+    <div className="min-h-[160px] h-auto pt-4 mx-auto divide-x divide-white/10 flex">
       {/* Paint Type Filter */}
       <PaintTypeFilter 
         selectedPaintType={selectedPaintType}
@@ -214,8 +232,8 @@ const SimplePaintPanel: React.FC<SimplePaintPanelProps> = ({ onColorChange }) =>
       )}
       
       {/* Color Swatches */}
-      <div className="flex-1 px-4">
-        <h3 className="text-xs font-bold text-white mb-2">Color Selection</h3>
+      <div className="flex-1 px-4 overflow-hidden flex flex-col">
+        <h3 className="text-xs font-bold text-white mb-2 flex-shrink-0">Color Selection</h3>
         <SimpleColorSwatches
           colors={filteredColors}
           selectedPaintType={selectedPaintType}

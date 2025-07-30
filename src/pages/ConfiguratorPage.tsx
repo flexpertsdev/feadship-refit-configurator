@@ -50,6 +50,7 @@ import NavigationBar from '../components/navigation/NavigationBar';
 import { useLocation } from 'react-router-dom';
 import SimplePaintPanel from '../components/configurator/paint/SimplePaintPanel';
 import { useYachtStore } from '../stores/yachtStore';
+import { getLevel3ForPaintPart } from '../utils/navigationHelpers';
 // Removed toast suppressor import
 import PixelStreamingView from '../components/configurator/PixelStreamingView';
 import ExtensionsPanel from '../components/configurator/extensions/ExtensionsPanel';
@@ -87,14 +88,16 @@ const ConfiguratorPage = () => {
   useEffect(() => {
     if (location.pathname === '/configurator') {
       if (activeLevel1 !== 'PAINT') {
-        setNavigationState('PAINT', 'hull', null);
+        const level2 = 'hull';
+        const level3 = currentYacht ? getLevel3ForPaintPart(currentYacht, level2) : 'greens';
+        setNavigationState('PAINT', level2, level3);
       }
     } else if (location.pathname === '/extensions') {
       if (activeLevel1 !== 'EXTENSIONS') {
         setNavigationState('EXTENSIONS', null, null);
       }
     }
-  }, [location.pathname, activeLevel1, activeLevel2, setNavigationState]);
+  }, [location.pathname, activeLevel1, currentYacht, setNavigationState]);
   
   // Flush pending color updates
   const flushColorUpdates = useCallback(() => {

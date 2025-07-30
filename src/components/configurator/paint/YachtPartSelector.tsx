@@ -23,9 +23,9 @@ const YachtPartSelector = ({ partColors, onPartSelect }: YachtPartSelectorProps)
   const activeLevel2 = currentYacht?.active_level_2 || null;
   
   return (
-    <div className="w-[12%] min-w-[160px] pl-2 tablet:pl-3">
-      <h3 className="text-2xs tablet:text-xs ipad:text-sm hd:text-[13px] font-bold text-white mb-2 tablet:mb-3">Yacht Parts</h3>
-      <div className="space-y-1 tablet:space-y-2">
+    <div className="w-[12%] min-w-[160px] pl-2 tablet:pl-3 flex flex-col">
+      <h3 className="text-2xs tablet:text-xs ipad:text-sm hd:text-[13px] font-bold text-white mb-2 tablet:mb-3 flex-shrink-0">Yacht Parts</h3>
+      <div className="space-y-1 tablet:space-y-2 overflow-y-auto flex-1">
         {YACHT_PARTS.map(part => {
           // Always convert both values to lowercase for comparison
           const partLower = part.toLowerCase();

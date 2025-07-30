@@ -384,7 +384,7 @@ export function getPreviousNavigation(
       level1: prevLevel1.id,
       level2: lastLevel2 ? lastLevel2.id : null,
       level3: null,
-      path: prevLevel1.path
+      path: lastLevel2 ? lastLevel2.path : prevLevel1.path
     };
   }
   
@@ -412,7 +412,7 @@ export function getPreviousNavigation(
       level1: prevLevel1.id,
       level2: lastLevel2 ? lastLevel2.id : null,
       level3: null,
-      path: prevLevel1.path
+      path: lastLevel2 ? lastLevel2.path : prevLevel1.path
     };
   }
   

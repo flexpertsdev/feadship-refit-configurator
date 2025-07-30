@@ -23,6 +23,8 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Menu, X } from 'lucide-react';
 import { NAVIGATION_ITEMS } from '../../utils/navigationUtils';
+import { getDefaultLevel2ForLevel1, getLevel3ForPaintPart } from '../../utils/navigationHelpers';
+import { useYachtStore } from '../../stores/yachtStore';
 import { Button } from "../ui/button";
 import { THEME } from './navigationTheme';
 
@@ -67,6 +69,7 @@ const Level1Navigation: React.FC<Level1NavigationProps> = ({
   onNext
 }) => {
   const navigate = useNavigate();
+  const { currentYacht } = useYachtStore();
 
   // Handle home navigation
   const handleHome = () => {
@@ -93,7 +96,17 @@ const Level1Navigation: React.FC<Level1NavigationProps> = ({
                 ? `border-b-[${THEME.borderWidth.active}] border-accent bg-[#102765]` 
                 : `border-b-[${THEME.borderWidth.active}] border-[#00a1c7] border-opacity-50`}
             `}
-            onClick={() => onNavigate(item.id, null)}
+            onClick={() => {
+              const defaultLevel2 = getDefaultLevel2ForLevel1(item.id);
+              
+              // Special handling for PAINT - also set Level 3
+              if (item.id === 'PAINT' && currentYacht && defaultLevel2) {
+                const level3 = getLevel3ForPaintPart(currentYacht, defaultLevel2);
+                onNavigate(item.id, defaultLevel2, level3);
+              } else {
+                onNavigate(item.id, defaultLevel2);
+              }
+            }}
           >
             {item.name}
           </Link>

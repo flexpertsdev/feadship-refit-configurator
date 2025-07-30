@@ -13,6 +13,8 @@ import { Link } from 'react-router-dom';
 import { NavigationItem } from '../../types/navigation';
 import { THEME } from './navigationTheme';
 import { ChevronRight } from 'lucide-react';
+import { useYachtStore } from '@/stores/yachtStore';
+import { getLevel3ForPaintPart } from '@/utils/navigationHelpers';
 
 interface Level2NavigationProps {
   items: NavigationItem[];
@@ -29,6 +31,7 @@ const Level2Navigation = forwardRef<HTMLDivElement, Level2NavigationProps>(({
   activeLevel3,
   onNavigate
 }, ref) => {
+  const { currentYacht } = useYachtStore();
 
   // Early return if no level 2 items
   if (!items || items.length === 0) {
@@ -64,7 +67,15 @@ const Level2Navigation = forwardRef<HTMLDivElement, Level2NavigationProps>(({
                     `border-b-[${THEME.borderWidth.active}] border-accent bg-primary-light` : 
                     `border-b-[3px] border-[#00a1c7] border-opacity-50`}
                 `} 
-                onClick={() => onNavigate(activeLevel1, item.id.toLowerCase())}
+                onClick={(e) => {
+                  if (activeLevel1 === 'PAINT' && currentYacht) {
+                    e.preventDefault(); // Don't navigate for paint items
+                    const level3 = getLevel3ForPaintPart(currentYacht, item.id.toLowerCase());
+                    onNavigate(activeLevel1, item.id.toLowerCase(), level3);
+                  } else {
+                    onNavigate(activeLevel1, item.id.toLowerCase());
+                  }
+                }}
               >
                 {item.name}
               </Link>

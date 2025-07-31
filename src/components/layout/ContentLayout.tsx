@@ -103,7 +103,7 @@ const ContentLayout: React.FC<ContentLayoutProps> = ({
 
       {backgroundImage && <div className="absolute inset-0 bg-black/30" />}
 
-      <div className={cn("relative z-10 flex-1 overflow-auto transition-all duration-300 px-6 sm:px-8 tablet:px-10 py-6 sm:py-8", className)}>
+      <div className={cn("relative z-10 flex-1 overflow-auto transition-all duration-300 px-4 sm:px-6 tablet:px-8 py-6 sm:py-8", className)}>
         {/* Header text content with higher z-index */}
         <div className="relative z-20">
           {preTitle && (

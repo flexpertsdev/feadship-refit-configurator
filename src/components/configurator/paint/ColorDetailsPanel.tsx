@@ -20,7 +20,7 @@ const ColorDetailsPanel: React.FC<ColorDetailsPanelProps> = ({ paintConfig, part
   if (!paintConfig) {
     return (
       <div className="w-[20%] min-w-[240px] px-4 border-r border-white/10">
-        <h3 className="text-xs font-bold text-white mb-2">Color Details</h3>
+        <h3 className="text-2xs tablet:text-xs ipad:text-sm hd:text-[13px] font-bold text-white mb-2 tablet:mb-3">Color Details</h3>
         <div className="text-white/40 text-xs">
           No color selected
         </div>

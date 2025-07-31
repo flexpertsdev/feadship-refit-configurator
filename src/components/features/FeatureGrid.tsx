@@ -28,9 +28,9 @@ const FeatureGrid: React.FC<FeatureGridProps> = ({
 }) => {
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 auto-rows-auto">
+      <div className="grid grid-cols-1 tablet:grid-cols-2 ipad:grid-cols-3 ipadpro:grid-cols-4 gap-4 tablet:gap-6">
         {[...Array(8)].map((_, index) => (
-          <Card key={index} className="overflow-hidden shadow-md aspect-[4/3]">
+          <Card key={index} className="overflow-hidden shadow-md aspect-[4/3] w-full">
             <div className="flex flex-col h-full">
               <Skeleton className="flex-grow" style={{ flex: '2 0 0' }} />
               <div className="p-4 border-t" style={{ flex: '1 0 0' }}>
@@ -47,7 +47,7 @@ const FeatureGrid: React.FC<FeatureGridProps> = ({
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 auto-rows-auto">
+    <div className="grid grid-cols-1 tablet:grid-cols-2 ipad:grid-cols-3 ipadpro:grid-cols-4 gap-4 tablet:gap-6">
       {features.map((feature) => (
         <StandardFeatureCard 
           key={feature.id} 

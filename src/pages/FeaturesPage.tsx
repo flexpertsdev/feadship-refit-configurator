@@ -64,13 +64,11 @@ const FeaturesPage = () => {
           backgroundColor={pageConfig.backgroundColor}
           textColor={pageConfig.textColor}
         >
-          <div className="mt-8">
-            <FeatureGridView 
-              featureType={currentConfig.featureType}
-              category={currentConfig.category}
-              fieldName={currentConfig.fieldName}
-            />
-          </div>
+          <FeatureGridView 
+            featureType={currentConfig.featureType}
+            category={currentConfig.category}
+            fieldName={currentConfig.fieldName}
+          />
         </ContentLayout>
       </div>
     </div>

@@ -18,21 +18,21 @@ interface PaintTypeFilterProps {
 
 const PaintTypeFilter = ({ selectedPaintType, onPaintTypeSelect }: PaintTypeFilterProps) => {
   return (
-    <div className="w-[10%] min-w-[80px] pl-2 pr-2">
-      <h3 className="text-xs font-bold text-white mb-2">Paint Type</h3>
-      <div className="space-y-1">
+    <div className="w-[12%] min-w-[120px] pl-2 pr-2">
+      <h3 className="text-2xs tablet:text-xs ipad:text-sm hd:text-[13px] font-bold text-white mb-2 tablet:mb-3">Paint Type</h3>
+      <div className="space-y-2">
         {Object.keys(PAINT_TYPE_MAP).map(type => (
           <button 
             key={type}
             onClick={() => onPaintTypeSelect(type)}
-            className={`flex items-center w-full group transition-colors ${
-              selectedPaintType === type ? 'text-white' : 'text-white/60 hover:text-white/80'
+            className={`flex items-center w-full py-1 px-2 rounded group transition-colors ${
+              selectedPaintType === type ? 'text-white bg-white/10' : 'text-white/60 hover:text-white/80 hover:bg-white/5'
             }`}
           >
-            <div className={`w-2 h-2 rounded-full mr-1.5 transition-colors ${
+            <div className={`w-2.5 h-2.5 rounded-full mr-2 transition-colors ${
               selectedPaintType === type ? 'bg-accent' : 'bg-white/20 group-hover:bg-white/30'
             }`} />
-            <span className="capitalize text-xs">{type}</span>
+            <span className="capitalize text-xs tablet:text-sm">{type}</span>
           </button>
         ))}
       </div>

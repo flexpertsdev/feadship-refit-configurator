@@ -43,12 +43,9 @@ const StandardFeatureCard: React.FC<StandardFeatureCardProps> = ({
         "w-full",
         "flex flex-col",
         "group",
+        "aspect-[4/3]",
         className
       )}
-      style={{
-        aspectRatio: '4/3', // Maintains 400x300 ratio
-        maxWidth: '400px'
-      }}
     >
       {/* Image Area - 2/3 of card height */}
       <div className="relative flex-grow overflow-hidden bg-gray-100" style={{ flex: '2 0 0' }}>

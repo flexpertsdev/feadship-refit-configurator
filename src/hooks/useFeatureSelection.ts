@@ -27,6 +27,7 @@ export const useFeatureSelection = ({ featureType, category, fieldName }: UseFea
       'exterior-features': 'exterior',
       'interior-features': 'interior', 
       'toys-tenders': 'toys',
+      'toys_and_tender': 'toys',  // Handle both naming conventions
       'sustainability': 'sustainability',
       'services': 'services'
     };

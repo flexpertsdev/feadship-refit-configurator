@@ -27,7 +27,7 @@ const YachtPartSelector = ({ partColors, onPartSelect }: YachtPartSelectorProps)
   
   return (
     <div className="w-[12%] min-w-[160px] pl-2 tablet:pl-3 flex flex-col">
-      <h3 className="text-xs font-bold text-white mb-2 flex-shrink-0">Yacht Parts</h3>
+      <h3 className="text-2xs tablet:text-xs ipad:text-sm hd:text-[13px] font-bold text-white mb-2 tablet:mb-3 flex-shrink-0">Yacht Parts</h3>
       <div className="space-y-1 overflow-y-auto flex-1">
         {YACHT_PARTS.map(part => {
           // Always convert both values to lowercase for comparison

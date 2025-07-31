@@ -59,14 +59,14 @@ const ColorPicker = ({ customColor, onCustomColorChange, onAddCustomColor }: Col
   };
 
   return (
-    <div className="w-[15%] min-w-[180px] pl-2 pr-2">
+    <div className="w-[20%] min-w-[240px] pl-2 pr-2">
       <h3 className="text-2xs tablet:text-xs ipad:text-sm hd:text-[13px] font-bold text-white mb-2 tablet:mb-3">Custom Color</h3>
       <div className="flex flex-col space-y-2">
         {/* Color picker components row */}
         <div className="flex space-x-2">
           {/* Saturation/Brightness area */}
           <div 
-            className="relative w-[65px] tablet:w-[75px] ipad:w-[85px] h-[55px] tablet:h-[65px] ipad:h-[75px] cursor-pointer rounded overflow-hidden" 
+            className="relative w-[85px] tablet:w-[95px] ipad:w-[100px] h-[55px] tablet:h-[65px] ipad:h-[75px] cursor-pointer rounded overflow-hidden" 
             style={{
               background: `linear-gradient(to bottom, rgba(0,0,0,0), #000), 
                           linear-gradient(to right, #fff, hsl(${customColor.startsWith('#') ? 0 : parseInt(customColor.split(',')[0]) || 0}, 100%, 50%))`

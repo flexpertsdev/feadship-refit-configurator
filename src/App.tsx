@@ -25,7 +25,6 @@ import Operations1Page from "./pages/Operations1Page";
 import Operations2Page from "./pages/Operations2Page";
 import Operations3Page from "./pages/Operations3Page";
 import ConfiguratorPage from "./pages/ConfiguratorPage";
-import ConfiguratorPageV2 from "./pages/ConfiguratorPageV2";
 import FeaturesPage from "./pages/FeaturesPage";
 import SustainabilityPage from "./pages/SustainabilityPage";
 import ServicesPage from "./pages/ServicesPage";
@@ -59,13 +58,6 @@ const App = () => {
               <Route path="/extensions" element={
                 <ProtectedRoute>
                   <ConfiguratorPage />
-                </ProtectedRoute>
-              } />
-              
-              {/* Test route for new configurator */}
-              <Route path="/configurator-v2" element={
-                <ProtectedRoute>
-                  <ConfiguratorPageV2 />
                 </ProtectedRoute>
               } />
               

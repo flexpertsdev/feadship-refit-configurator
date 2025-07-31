@@ -227,13 +227,16 @@ const ConfiguratorPage = () => {
         />
       </div>
       
-      {/* Bottom navigation */}
-      <NavigationBar position="bottom" />
-      
-      {/* Configuration panels */}
-      <div className="w-full bg-primary overflow-hidden">
-        <div className="w-full px-4 text-white">
-          {panelContent}
+      {/* Bottom section - fixed height container */}
+      <div className="h-[250px] flex flex-col bg-primary">
+        {/* Navigation bar */}
+        <NavigationBar position="bottom" />
+        
+        {/* Configuration panels - fill remaining space */}
+        <div className="flex-1 overflow-hidden">
+          <div className="h-full px-4 text-white">
+            {panelContent}
+          </div>
         </div>
       </div>
     </div>

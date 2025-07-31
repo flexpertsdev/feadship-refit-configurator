@@ -11,8 +11,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { X } from 'lucide-react';
-// Temporarily using V2 for testing
-import { NAVIGATION_ITEMS } from '../../utils/navigationUtilsV2';
+import { NAVIGATION_ITEMS } from '../../utils/navigationUtils';
 
 // Custom Home Icon SVG component
 const HomeIcon = () => (

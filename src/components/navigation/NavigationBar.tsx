@@ -30,8 +30,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useYachtStore } from '../../stores/yachtStore';
-// Temporarily using V2 for testing
-import { NAVIGATION_ITEMS, getNextNavigation, getPreviousNavigation } from '../../utils/navigationUtilsV2';
+import { NAVIGATION_ITEMS, getNextNavigation, getPreviousNavigation } from '../../utils/navigationUtils';
 import { getLevel3ForPaintPart } from '../../utils/navigationHelpers';
 import { NavigationItem } from '../../types/navigation';
 import Level1Navigation from './Level1Navigation';

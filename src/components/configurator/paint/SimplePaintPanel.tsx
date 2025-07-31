@@ -213,7 +213,7 @@ const SimplePaintPanel: React.FC<SimplePaintPanelProps> = ({ onColorChange }) =>
   };
   
   return (
-    <div className="h-[130px] pt-3 mx-auto divide-x divide-white/10 flex overflow-hidden">
+    <div className="h-full pt-3 mx-auto divide-x divide-white/10 flex overflow-hidden">
       {/* Paint Type Filter */}
       <PaintTypeFilter 
         selectedPaintType={selectedPaintType}

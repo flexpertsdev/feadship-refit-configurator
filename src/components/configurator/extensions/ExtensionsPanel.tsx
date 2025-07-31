@@ -115,7 +115,7 @@ export function ExtensionsPanel({ onSendCommand }: ExtensionsPanelProps = {}) {
   };
 
   return (
-    <div className="h-[170px] max-w-[1500px] mx-auto bg-primary py-3 overflow-hidden">
+    <div className="h-full max-w-[1500px] mx-auto bg-primary py-3 overflow-hidden">
       <div className="flex gap-4 justify-center items-center px-4 h-full">
         {isLoading ? (
           <div className="flex flex-col items-center gap-2 py-8">

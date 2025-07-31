@@ -84,20 +84,18 @@ const ConfiguratorPage = () => {
     "share-ac5e7dd9-c232-4afc-a11e-3fba9a583dab", []
   );
 
-  // Set up navigation based on current path
+  // Set up initial navigation when entering the page
   useEffect(() => {
-    if (location.pathname === '/configurator') {
-      if (activeLevel1 !== 'PAINT') {
-        const level2 = 'hull';
-        const level3 = currentYacht ? getLevel3ForPaintPart(currentYacht, level2) : 'greens';
-        setNavigationState('PAINT', level2, level3);
-      }
-    } else if (location.pathname === '/extensions') {
-      if (activeLevel1 !== 'EXTENSIONS') {
-        setNavigationState('EXTENSIONS', null, null);
-      }
+    if (location.pathname === '/configurator' && !activeLevel1) {
+      // Only set initial state when there's no active navigation
+      const level2 = 'hull';
+      const level3 = currentYacht ? getLevel3ForPaintPart(currentYacht, level2) : 'greens';
+      setNavigationState('PAINT', level2, level3);
+    } else if (location.pathname === '/extensions' && !activeLevel1) {
+      // Only set initial state when there's no active navigation
+      setNavigationState('EXTENSIONS', null, null);
     }
-  }, [location.pathname, activeLevel1, currentYacht, setNavigationState]);
+  }, [location.pathname]);
   
   // Flush pending color updates
   const flushColorUpdates = useCallback(() => {

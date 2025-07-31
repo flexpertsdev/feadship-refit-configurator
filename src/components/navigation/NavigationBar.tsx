@@ -54,57 +54,8 @@ const NavigationBar = ({
   const activeLevel1 = currentYacht?.active_level_1 || null;
   const activeLevel2 = currentYacht?.active_level_2 || null;
   const activeLevel3 = currentYacht?.active_level_3 || null;
-  useEffect(() => {
-    const currentPath = location.pathname;
-    let foundLevel1: NavigationItem | undefined;
-    let foundLevel2: NavigationItem | undefined;
-    
-    // Find which navigation item matches the current path
-    for (const level1Item of NAVIGATION_ITEMS) {
-      if (level1Item.path === currentPath) {
-        foundLevel1 = level1Item;
-        // If this Level 1 has subitems, use the first one as default Level 2
-        if (level1Item.subItems && level1Item.subItems.length > 0) {
-          foundLevel2 = level1Item.subItems[0];
-        }
-        break;
-      }
-      for (const level2Item of level1Item.subItems) {
-        if (level2Item.path === currentPath) {
-          foundLevel1 = level1Item;
-          foundLevel2 = level2Item;
-          break;
-        }
-      }
-      if (foundLevel1) break;
-    }
-    
-    // Only update if we found a match and it's different from current state
-    if (foundLevel1) {
-      const needsUpdate = foundLevel1.id !== activeLevel1 || 
-                         (foundLevel2 && foundLevel2.id !== activeLevel2);
-      
-      if (needsUpdate) {
-        // For PAINT, preserve Level 3 or set based on current color
-        let level3 = null;
-        if (foundLevel1.id === 'PAINT' && currentYacht) {
-          if (foundLevel1.id === activeLevel1) {
-            // Preserve existing Level 3 when staying in PAINT
-            level3 = activeLevel3;
-          } else if (foundLevel2) {
-            // Set Level 3 based on current color when entering PAINT
-            level3 = getLevel3ForPaintPart(currentYacht, foundLevel2.id);
-          }
-        }
-        
-        setNavigationState(
-          foundLevel1.id,
-          foundLevel2?.id || null,
-          level3
-        );
-      }
-    }
-  }, [location.pathname, activeLevel1, activeLevel2, activeLevel3, currentYacht, setNavigationState]);
+  
+  // Scroll Level 2 navigation into view when it changes
   useEffect(() => {
     if (level2ScrollRef.current && activeLevel2) {
       const activeElement = level2ScrollRef.current.querySelector(`[data-id="${activeLevel2}"]`);
@@ -119,31 +70,25 @@ const NavigationBar = ({
   }, [activeLevel1, activeLevel2, activeLevel3]);
   const handleBack = async () => {
     const prev = getPreviousNavigation(activeLevel1, activeLevel2, activeLevel3);
-    if (prev.path && prev.level1) {
-      // For PAINT, set Level 3 based on current color
-      let finalLevel3 = prev.level3;
-      if (prev.level1 === 'PAINT' && prev.level2 && currentYacht) {
-        finalLevel3 = getLevel3ForPaintPart(currentYacht, prev.level2);
+    if (prev.level1) {
+      // Update yacht navigation state
+      await setNavigationState(prev.level1, prev.level2, prev.level3);
+      // Navigate to the page if path is different
+      if (prev.path && prev.path !== location.pathname) {
+        navigate(prev.path);
       }
-      
-      // Update state first, then navigate
-      await setNavigationState(prev.level1, prev.level2, finalLevel3);
-      navigate(prev.path);
     }
   };
   
   const handleNext = async () => {
     const next = getNextNavigation(activeLevel1, activeLevel2, activeLevel3);
-    if (next.path && next.level1) {
-      // For PAINT, set Level 3 based on current color
-      let finalLevel3 = next.level3;
-      if (next.level1 === 'PAINT' && next.level2 && currentYacht) {
-        finalLevel3 = getLevel3ForPaintPart(currentYacht, next.level2);
+    if (next.level1) {
+      // Update yacht navigation state
+      await setNavigationState(next.level1, next.level2, next.level3);
+      // Navigate to the page if path is different
+      if (next.path && next.path !== location.pathname) {
+        navigate(next.path);
       }
-      
-      // Update state first, then navigate
-      await setNavigationState(next.level1, next.level2, finalLevel3);
-      navigate(next.path);
     }
   };
   

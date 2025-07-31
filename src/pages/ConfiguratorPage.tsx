@@ -95,7 +95,7 @@ const ConfiguratorPage = () => {
       // Only set initial state when there's no active navigation
       setNavigationState('EXTENSIONS', null, null);
     }
-  }, [location.pathname]);
+  }, [location.pathname, currentYacht, activeLevel1, setNavigationState]);
   
   // Flush pending color updates
   const flushColorUpdates = useCallback(() => {
@@ -226,7 +226,7 @@ const ConfiguratorPage = () => {
       </div>
       
       {/* Bottom section - fixed height container */}
-      <div className="h-[250px] flex flex-col bg-primary">
+      <div className="h-[280px] flex flex-col bg-primary">
         {/* Navigation bar */}
         <NavigationBar position="bottom" />
         

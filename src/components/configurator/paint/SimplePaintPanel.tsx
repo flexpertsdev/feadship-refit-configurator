@@ -194,7 +194,9 @@ const SimplePaintPanel: React.FC<SimplePaintPanelProps> = ({ onColorChange }) =>
     console.log('Current activeLevel2:', activeLevel2);
     
     // Get the appropriate Level 3 based on the part's current paint color group
-    const level3 = currentYacht ? getLevel3ForPaintPart(currentYacht, part) : 'custom-colours';
+    // Use proper defaults if yacht not loaded yet (hull='greens', others='whites-beiges')
+    const level3 = currentYacht ? getLevel3ForPaintPart(currentYacht, part) : 
+                   (part === 'hull' ? 'greens' : 'whites-beiges');
     
     console.log('Setting navigation state:', { level1: 'PAINT', level2: part, level3 });
     

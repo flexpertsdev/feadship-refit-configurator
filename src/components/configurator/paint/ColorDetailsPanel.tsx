@@ -36,36 +36,36 @@ const ColorDetailsPanel: React.FC<ColorDetailsPanelProps> = ({ paintConfig, part
       <h3 className="text-xs font-bold text-white mb-2">Color Details</h3>
       
       <div className="flex gap-3">
-        {/* Color Swatch */}
+        {/* Color Swatch - Rectangle shape */}
         <div 
-          className="w-[60px] h-[60px] rounded-md border border-white/20 shadow-lg flex-shrink-0"
+          className="w-[80px] h-[50px] rounded-md border border-white/20 shadow-lg flex-shrink-0"
           style={{ backgroundColor: paintConfig.color }}
         />
         
-        {/* Color Information */}
+        {/* Color Information - Left aligned with closer spacing */}
         <div className="space-y-1 text-xs flex-1">
-          <div className="flex justify-between">
-            <span className="text-white/60">Part:</span>
+          <div className="flex gap-2">
+            <span className="text-white/60 w-12">Part:</span>
             <span className="text-white capitalize">{partName}</span>
           </div>
           
-          <div className="flex justify-between">
-            <span className="text-white/60">Name:</span>
+          <div className="flex gap-2">
+            <span className="text-white/60 w-12">Name:</span>
             <span className="text-white">{paintConfig.name}</span>
           </div>
           
-          <div className="flex justify-between">
-            <span className="text-white/60">Hex:</span>
+          <div className="flex gap-2">
+            <span className="text-white/60 w-12">Hex:</span>
             <span className="text-white font-mono">{paintConfig.color.toUpperCase()}</span>
           </div>
           
-          <div className="flex justify-between">
-            <span className="text-white/60">Type:</span>
+          <div className="flex gap-2">
+            <span className="text-white/60 w-12">Type:</span>
             <span className="text-white capitalize">{paintConfig.type}</span>
           </div>
           
-          <div className="flex justify-between">
-            <span className="text-white/60">Group:</span>
+          <div className="flex gap-2">
+            <span className="text-white/60 w-12">Group:</span>
             <span className="text-white">{groupDisplayName}</span>
           </div>
         </div>

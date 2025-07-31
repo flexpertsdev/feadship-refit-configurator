@@ -71,8 +71,14 @@ const NavigationBar = ({
   const handleBack = async () => {
     const prev = getPreviousNavigation(activeLevel1, activeLevel2, activeLevel3);
     if (prev.level1) {
+      // For PAINT navigation, get the correct Level 3 based on yacht paint config
+      let finalLevel3 = prev.level3;
+      if (prev.level1 === 'PAINT' && prev.level2 && currentYacht) {
+        finalLevel3 = getLevel3ForPaintPart(currentYacht, prev.level2);
+      }
+      
       // Update yacht navigation state
-      await setNavigationState(prev.level1, prev.level2, prev.level3);
+      await setNavigationState(prev.level1, prev.level2, finalLevel3);
       // Navigate to the page if path is different
       if (prev.path && prev.path !== location.pathname) {
         navigate(prev.path);
@@ -83,8 +89,14 @@ const NavigationBar = ({
   const handleNext = async () => {
     const next = getNextNavigation(activeLevel1, activeLevel2, activeLevel3);
     if (next.level1) {
+      // For PAINT navigation, get the correct Level 3 based on yacht paint config
+      let finalLevel3 = next.level3;
+      if (next.level1 === 'PAINT' && next.level2 && currentYacht) {
+        finalLevel3 = getLevel3ForPaintPart(currentYacht, next.level2);
+      }
+      
       // Update yacht navigation state
-      await setNavigationState(next.level1, next.level2, next.level3);
+      await setNavigationState(next.level1, next.level2, finalLevel3);
       // Navigate to the page if path is different
       if (next.path && next.path !== location.pathname) {
         navigate(next.path);

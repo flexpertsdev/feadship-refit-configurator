@@ -25,17 +25,16 @@ const SimpleColorSwatches: React.FC<SimpleColorSwatchesProps> = ({
   const { currentYacht } = useYachtStore();
   const activeLevel2 = currentYacht?.active_level_2 || null;
   
-  // Get current part's color and type from yacht
+  // Get current part's color and type from yacht (V2 schema)
   const getCurrentPartColor = () => {
     if (!currentYacht || !activeLevel2) return null;
     
-    const part = activeLevel2;
-    const colorKey = `${part}_paint_color`;
-    const typeKey = `${part}_paint_type`;
+    const paintConfig = currentYacht.paint[activeLevel2 as keyof typeof currentYacht.paint];
+    if (!paintConfig) return null;
     
     return {
-      hex: currentYacht[colorKey]?.toLowerCase(),
-      type: currentYacht[typeKey] || ''
+      hex: paintConfig.color?.toLowerCase(),
+      type: paintConfig.type || ''
     };
   };
   
@@ -56,23 +55,16 @@ const SimpleColorSwatches: React.FC<SimpleColorSwatchesProps> = ({
           key={color.id}
           onClick={() => onColorSelect(color)}
           className={`
-            relative flex-shrink-0 w-[30px] h-[50px] rounded 
+            relative flex-shrink-0 w-[40px] h-[60px] rounded 
             transition-all duration-200 hover:scale-105
             ${isColorSelected(color) 
-              ? 'ring-2 ring-blue-400 ring-offset-1 ring-offset-primary shadow-md' 
-              : 'hover:ring-1 hover:ring-white/50'
+              ? 'border-2 border-blue-500 shadow-lg' 
+              : 'border-2 border-transparent hover:border-white/30'
             }
           `}
           style={{ backgroundColor: color.hex }}
           title={`${color.name} (${color.type})`}
-        >
-          {/* Selected indicator - pretty blue halo effect */}
-          {isColorSelected(color) && (
-            <div className="absolute inset-0 rounded-md animate-pulse">
-              <div className="absolute inset-0 bg-blue-400/20 rounded-md blur-md" />
-            </div>
-          )}
-        </button>
+        />
       ))}
       
       {colors.length === 0 && (

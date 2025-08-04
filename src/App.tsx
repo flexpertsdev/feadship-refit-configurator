@@ -31,6 +31,7 @@ import ServicesPage from "./pages/ServicesPage";
 import SummaryPage from "./pages/SummaryPage";
 import FontTestPage from "./pages/FontTestPage";
 import FontTestFirebase from "./pages/FontTestFirebase";
+import ArcwareTest from "./pages/ArcwareTest";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import DebugPanel from "./components/debug/DebugPanel";
 
@@ -124,6 +125,9 @@ const App = () => {
                 {/* Font test pages - public access */}
                 <Route path="/font-test" element={<FontTestPage />} />
                 <Route path="/font-test-firebase" element={<FontTestFirebase />} />
+                
+                {/* Arcware test page - public access */}
+                <Route path="/arcware-test" element={<ArcwareTest />} />
                 
                 {/* 404 page */}
                 <Route path="*" element={<NotFound />} />

@@ -53,6 +53,8 @@ import { useYachtStore } from '../stores/yachtStore';
 import { getLevel3ForPaintPart } from '../utils/navigationHelpers';
 // Removed toast suppressor import
 import PixelStreamingView from '../components/configurator/PixelStreamingView';
+import SimplePixelStreamingView from '../components/configurator/SimplePixelStreamingView';
+import PersistentPixelStreamingView from '../components/configurator/PersistentPixelStreamingView';
 import ExtensionsPanel from '../components/configurator/extensions/ExtensionsPanel';
 
 interface ColorUpdateCommand {
@@ -175,8 +177,10 @@ const ConfiguratorPage = () => {
   
   // Generic command sender for extensions and other features
   const handleSendCommand = useCallback((command: any) => {
+    console.log('handleSendCommand called with:', command);
     if (sendCommandRef.current) {
       sendCommandRef.current(command);
+      console.log('Command sent to pixel streaming');
     } else {
       console.warn('Pixel streaming not ready, command queued');
     }
@@ -215,13 +219,11 @@ const ConfiguratorPage = () => {
           </div>
         </div>
         
-        {/* Main streaming view with auto-start */}
-        <PixelStreamingView 
+        {/* Main streaming view with auto-start - using simplified version */}
+        <SimplePixelStreamingView 
           key={`stream-${yachtId || 'default'}`} // Only re-mount when yacht actually changes
           shareId={pixelStreamingShareId}
           onSendCommand={handleSetSendCommand}
-          autoStart={true}
-          maxRetries={3}
         />
       </div>
       

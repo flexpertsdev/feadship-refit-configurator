@@ -91,25 +91,21 @@ const PixelStreamingView: React.FC<PixelStreamingViewProps> = ({
   const connectionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isComponentMountedRef = useRef<boolean>(true);
 
-  // Memoized connection settings
+  // Memoized connection settings - matching working ArcwareTest structure
   const connectionConfig = useMemo(() => ({
     shareId: shareId,
-    settings: {
-      StartVideoMuted: false,
+    initialSettings: {
+      StartVideoMuted: true,  // Changed to true like working version
       AutoConnect: true,
       AutoPlayVideo: true,
+    },
+    settings: {
       infoButton: false,
       micButton: false,
       audioButton: false,
       fullscreenButton: false,
       settingsButton: false,
-      connectionStrengthIcon: false,
-      // Additional performance settings
-      MatchViewportResolution: true,
-      PreferredCodec: 'H264',
-      MaxFPS: 60,
-      MinBitrate: 1000,
-      MaxBitrate: 20000
+      connectionStrengthIcon: false
     }
   }), [shareId]);
 
@@ -213,8 +209,13 @@ const PixelStreamingView: React.FC<PixelStreamingViewProps> = ({
 
       const { Config, PixelStreaming, Application } = ArcwareInit(
         { shareId: connectionConfig.shareId },
-        { settings: connectionConfig.settings }
+        {
+          initialSettings: connectionConfig.initialSettings,
+          settings: connectionConfig.settings
+        }
       );
+
+      console.log("ArcwareInit completed, Application:", Application);
 
       if (!isComponentMountedRef.current) return;
 
@@ -242,11 +243,13 @@ const PixelStreamingView: React.FC<PixelStreamingViewProps> = ({
 
       setArcwareApplication(Application);
 
-      // Setup connection timeout
+      // Setup connection timeout - matching test page timing
       connectionTimeoutRef.current = setTimeout(() => {
         if (!isComponentMountedRef.current) return;
         
         const videoElement = Application.rootElement?.querySelector('video');
+        console.log("Timeout check - video element:", videoElement, "paused:", videoElement?.paused);
+        
         if (videoElement && !videoElement.paused) {
           setConnectionState(prev => ({
             ...prev,
@@ -259,13 +262,16 @@ const PixelStreamingView: React.FC<PixelStreamingViewProps> = ({
           console.warn("Connection timeout - attempting retry");
           attemptReconnection();
         }
-      }, 8000);
+      }, 5000); // Changed to 5000ms like test page
 
       // Append to container
       if (videoContainerRef.current && Application.rootElement) {
+        console.log("Appending Application.rootElement to container");
         videoContainerRef.current.appendChild(Application.rootElement);
         
         const streamVideo = Application.rootElement.querySelector('video');
+        console.log("Found video element:", streamVideo);
+        
         if (streamVideo) {
           streamVideo.style.width = '100%';
           streamVideo.style.height = '100%';
@@ -276,6 +282,7 @@ const PixelStreamingView: React.FC<PixelStreamingViewProps> = ({
           streamVideo.addEventListener('play', () => {
             if (!isComponentMountedRef.current) return;
             
+            console.log("Video play event fired");
             setConnectionState(prev => ({
               ...prev,
               status: 'connected',

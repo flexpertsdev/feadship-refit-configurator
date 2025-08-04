@@ -49,22 +49,41 @@ const SimpleColorSwatches: React.FC<SimpleColorSwatchesProps> = ({
   };
   
   return (
-    <div className="flex gap-2 overflow-x-auto py-1 scrollbar-none flex-1">
+    <div className="flex gap-3 overflow-x-auto py-2 scrollbar-none flex-1 px-1">
       {colors.map(color => (
         <button
           key={color.id}
           onClick={() => onColorSelect(color)}
           className={`
-            relative flex-shrink-0 w-[40px] h-[60px] rounded 
-            transition-all duration-200 hover:scale-105
+            relative flex-shrink-0 w-[55px] h-[100px] rounded-lg
+            transition-all duration-200 hover:scale-105 hover:shadow-xl
             ${isColorSelected(color) 
-              ? 'border-2 border-blue-500 shadow-lg' 
-              : 'border-2 border-transparent hover:border-white/30'
+              ? 'ring-3 ring-accent ring-offset-2 ring-offset-primary shadow-xl scale-105' 
+              : 'ring-1 ring-white/20 hover:ring-2 hover:ring-white/40'
             }
           `}
           style={{ backgroundColor: color.hex }}
           title={`${color.name} (${color.type})`}
-        />
+          aria-label={`Select ${color.name} ${color.type} paint`}
+        >
+          {isColorSelected(color) && (
+            <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-black/20">
+              <svg 
+                className="w-6 h-6 text-white drop-shadow-lg" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={3} 
+                  d="M5 13l4 4L19 7" 
+                />
+              </svg>
+            </div>
+          )}
+        </button>
       ))}
       
       {colors.length === 0 && (

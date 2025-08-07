@@ -22,7 +22,7 @@ export const PREFERENCES_LIBRARY: LibraryItem[] = [
     name: 'Clean',
     description: 'Minimalist design with clean lines',
     value: 1,
-    image: '/assets/step1/bg1.jpg'
+    image: '/assets/preferences/design/complexity/1.jpg'
   },
   {
     id: 'design_complexity_2',
@@ -30,7 +30,7 @@ export const PREFERENCES_LIBRARY: LibraryItem[] = [
     name: 'Detailed',
     description: 'Balanced design with thoughtful details',
     value: 2,
-    image: '/assets/step1/bg2.jpg'
+    image: '/assets/preferences/design/complexity/2.jpg'
   },
   {
     id: 'design_complexity_3',
@@ -38,59 +38,107 @@ export const PREFERENCES_LIBRARY: LibraryItem[] = [
     name: 'Complex',
     description: 'Rich design with intricate details',
     value: 3,
-    image: '/assets/step1/bg3.jpg'
+    image: '/assets/preferences/design/complexity/3.jpg'
+  },
+  {
+    id: 'design_complexity_4',
+    category: 'design_complexity',
+    name: 'Elaborate',
+    description: 'Highly detailed design language',
+    value: 4,
+    image: '/assets/preferences/design/complexity/4.jpg'
+  },
+  {
+    id: 'design_complexity_5',
+    category: 'design_complexity',
+    name: 'Intricate',
+    description: 'Maximum complexity and detail',
+    value: 5,
+    image: '/assets/preferences/design/complexity/5.jpg'
+  },
+
+  // ===== DESIGN STYLE =====
+  {
+    id: 'design_style_1',
+    category: 'design_style',
+    name: 'Traditional',
+    description: 'Classic yacht design language',
+    value: 1,
+    image: '/assets/preferences/design/style/1.jpg'
+  },
+  {
+    id: 'design_style_2',
+    category: 'design_style',
+    name: 'Transitional',
+    description: 'Blend of classic and modern',
+    value: 2,
+    image: '/assets/preferences/design/style/2.jpg'
+  },
+  {
+    id: 'design_style_3',
+    category: 'design_style',
+    name: 'Contemporary',
+    description: 'Modern design approach',
+    value: 3,
+    image: '/assets/preferences/design/style/3.jpg'
+  },
+  {
+    id: 'design_style_4',
+    category: 'design_style',
+    name: 'Progressive',
+    description: 'Forward-thinking design',
+    value: 4,
+    image: '/assets/preferences/design/style/4.jpg'
+  },
+  {
+    id: 'design_style_5',
+    category: 'design_style',
+    name: 'Futuristic',
+    description: 'Cutting-edge modern design',
+    value: 5,
+    image: '/assets/preferences/design/style/5.jpg'
   },
 
   // ===== DESIGN TRADITIONAL =====
   {
     id: 'design_traditional_1',
     category: 'design_traditional',
-    name: 'Traditional',
-    description: 'Classic yacht design language',
+    name: 'Heritage',
+    description: 'Time-honored yacht craftsmanship',
     value: 1,
-    image: '/assets/step2/bg1.jpg'
+    image: '/assets/preferences/design/traditional/1.jpg'
   },
   {
     id: 'design_traditional_2',
     category: 'design_traditional',
-    name: 'Transitional',
-    description: 'Blend of classic and modern',
+    name: 'Classic',
+    description: 'Proven traditional elements',
     value: 2,
-    image: '/assets/step2/bg2.jpg'
+    image: '/assets/preferences/design/traditional/2.jpg'
   },
   {
     id: 'design_traditional_3',
     category: 'design_traditional',
-    name: 'Contemporary',
-    description: 'Modern design approach',
+    name: 'Balanced',
+    description: 'Mix of traditional and modern',
     value: 3,
-    image: '/assets/step2/bg3.jpg'
-  },
-
-  // ===== DESIGN RADICAL =====
-  {
-    id: 'design_radical_1',
-    category: 'design_radical',
-    name: 'Familiar',
-    description: 'Proven design elements',
-    value: 1,
-    image: '/assets/step3/bg1.jpg'
+    image: '/assets/preferences/design/traditional/3.jpg'
   },
   {
-    id: 'design_radical_2',
-    category: 'design_radical',
-    name: 'Explorative',
-    description: 'Innovative design touches',
-    value: 2,
-    image: '/assets/step3/bg2.jpg'
+    id: 'design_traditional_4',
+    category: 'design_traditional',
+    name: 'Progressive',
+    description: 'Modern interpretation of classics',
+    value: 4,
+    image: '/assets/preferences/design/traditional/4.jpg'
   },
   {
-    id: 'design_radical_3',
-    category: 'design_radical',
-    name: 'Radical',
-    description: 'Groundbreaking design concepts',
-    value: 3,
-    image: '/assets/step3/bg3.jpg'
+    id: 'design_traditional_5',
+    category: 'design_traditional',
+    name: 'Innovative',
+    description: 'Breaking traditional boundaries',
+    value: 5,
+    image: '/assets/preferences/design/traditional/5.jpg'
   },
 
   // ===== OPERATION TYPE =====
@@ -98,15 +146,15 @@ export const PREFERENCES_LIBRARY: LibraryItem[] = [
     id: 'operation_private',
     category: 'operation',
     name: 'Private',
-    description: 'Exclusive use for owner and guests',
-    image: '/assets/operation/private.png'
+    description: 'Using your Feadship for ‘private use only’ means that it is exclusively for the owner, family, and invited guests. The yacht is not chartered or rented out for commercial purposes. This allows for a highly personalized experience, with custom interiors, a dedicated crew catering solely to your preferences, and complete privacy.',
+    image: '/assets/preferences/operations/private.png'
   },
   {
     id: 'operation_charter',
     category: 'operation',
     name: 'Charter',
-    description: 'Available for charter operations',
-    image: '/assets/operation/charter.png'
+    description: 'Using your Feadship for ‘charter purposes’ means renting it out to guests for a fee. This helps offset operational costs, including maintenance and crew salaries, while keeping the yacht active. The crew provides a premium hospitality experience, ensuring guests enjoy luxury services and amenities.',
+    image: '/assets/preferences/operations/charter.png'
   },
 
   // ===== ACTIVITIES =====
@@ -115,177 +163,198 @@ export const PREFERENCES_LIBRARY: LibraryItem[] = [
     category: 'activities',
     name: 'Diving',
     description: 'Scuba diving and snorkeling',
-    image: '/assets/activities/diving.jpg'
+    image: '/assets/preferences/activities/diving.jpg'
+  },
+  {
+    id: 'activity_cinema',
+    category: 'activities',
+    name: 'Cinema',
+    description: 'Private movie screenings',
+    image: '/assets/preferences/activities/cinema.jpg'
+  },
+  {
+    id: 'activity_family_cooking',
+    category: 'activities',
+    name: 'Family Cooking',
+    description: 'Culinary experiences together',
+    image: '/assets/preferences/activities/family-cooking.jpg'
+  },
+  {
+    id: 'activity_gym',
+    category: 'activities',
+    name: 'Fitness',
+    description: 'Gym and workout facilities',
+    image: '/assets/preferences/activities/gym.jpg'
+  },
+  {
+    id: 'activity_dining',
+    category: 'activities',
+    name: 'Fine Dining',
+    description: 'Indoor and outdoor dining experiences',
+    image: '/assets/preferences/activities/in-out-dining.jpg'
+  },
+  {
+    id: 'activity_jacuzzi',
+    category: 'activities',
+    name: 'Jacuzzi',
+    description: 'Relaxation in luxury hot tubs',
+    image: '/assets/preferences/activities/jacuzzi.jpg'
+  },
+  {
+    id: 'activity_jetski',
+    category: 'activities',
+    name: 'Jet Skiing',
+    description: 'High-speed water sports',
+    image: '/assets/preferences/activities/jet-skis.jpg'
+  },
+  {
+    id: 'activity_karaoke',
+    category: 'activities',
+    name: 'Karaoke Night',
+    description: 'Entertainment and singing',
+    image: '/assets/preferences/activities/karaoke-night.jpg'
+  },
+  {
+    id: 'activity_massage',
+    category: 'activities',
+    name: 'Massage & Spa',
+    description: 'Relaxation and wellness treatments',
+    image: '/assets/preferences/activities/massage.jpg'
+  },
+  {
+    id: 'activity_remote',
+    category: 'activities',
+    name: 'Remote Places',
+    description: 'Exploring untouched destinations',
+    image: '/assets/preferences/activities/remote-places.jpg'
+  },
+  {
+    id: 'activity_sauna',
+    category: 'activities',
+    name: 'Sauna',
+    description: 'Heat therapy and relaxation',
+    image: '/assets/preferences/activities/sauna.jpg'
+  },
+  {
+    id: 'activity_swimming',
+    category: 'activities',
+    name: 'Swimming',
+    description: 'Pool and ocean swimming',
+    image: '/assets/preferences/activities/swimming.jpg'
+  },
+  {
+    id: 'activity_water_toys',
+    category: 'activities',
+    name: 'Water Toys',
+    description: 'Fun with various water equipment',
+    image: '/assets/preferences/activities/water-toys.jpg'
+  },
+  {
+    id: 'activity_wildlife',
+    category: 'activities',
+    name: 'Wildlife Spotting',
+    description: 'Marine life and bird watching',
+    image: '/assets/preferences/activities/wildlife-spotting.jpg'
+  },
+  {
+    id: 'activity_wine',
+    category: 'activities',
+    name: 'Wine Tasting',
+    description: 'Fine wine experiences',
+    image: '/assets/preferences/activities/wine-tasrting.jpg'
+  },
+  {
+    id: 'activity_yoga',
+    category: 'activities',
+    name: 'Yoga',
+    description: 'Mindfulness and flexibility',
+    image: '/assets/preferences/activities/yoga.jpg'
   },
   {
     id: 'activity_fishing',
     category: 'activities',
     name: 'Fishing',
-    description: 'Sport fishing and deep sea fishing',
-    image: '/assets/activities/fishing.jpg'
-  },
-  {
-    id: 'activity_watersports',
-    category: 'activities',
-    name: 'Water Sports',
-    description: 'Jet skiing, wakeboarding, and more',
-    image: '/assets/activities/watersports.jpg'
-  },
-  {
-    id: 'activity_sailing',
-    category: 'activities',
-    name: 'Sailing',
-    description: 'Traditional sailing experience',
-    image: '/assets/activities/sailing.jpg'
-  },
-  {
-    id: 'activity_exploration',
-    category: 'activities',
-    name: 'Exploration',
-    description: 'Remote destination exploration',
-    image: '/assets/activities/exploration.jpg'
-  },
-  {
-    id: 'activity_wellness',
-    category: 'activities',
-    name: 'Wellness',
-    description: 'Spa, yoga, and relaxation',
-    image: '/assets/activities/wellness.jpg'
-  },
-  {
-    id: 'activity_entertainment',
-    category: 'activities',
-    name: 'Entertainment',
-    description: 'Parties and social events',
-    image: '/assets/activities/entertainment.jpg'
-  },
-  {
-    id: 'activity_adventure',
-    category: 'activities',
-    name: 'Adventure',
-    description: 'Extreme sports and activities',
-    image: '/assets/activities/adventure.jpg'
-  },
-  {
-    id: 'activity_wildlife',
-    category: 'activities',
-    name: 'Wildlife Watching',
-    description: 'Marine life and bird watching',
-    image: '/assets/activities/wildlife.jpg'
-  },
-  {
-    id: 'activity_photography',
-    category: 'activities',
-    name: 'Photography',
-    description: 'Underwater and landscape photography',
-    image: '/assets/activities/photography.jpg'
-  },
-  {
-    id: 'activity_research',
-    category: 'activities',
-    name: 'Research',
-    description: 'Marine research and conservation',
-    image: '/assets/activities/research.jpg'
-  },
-  {
-    id: 'activity_racing',
-    category: 'activities',
-    name: 'Racing',
-    description: 'Yacht racing and regattas',
-    image: '/assets/activities/racing.jpg'
-  },
-  {
-    id: 'activity_cultural',
-    category: 'activities',
-    name: 'Cultural Tours',
-    description: 'Coastal cultural experiences',
-    image: '/assets/activities/cultural.jpg'
-  },
-  {
-    id: 'activity_beach',
-    category: 'activities',
-    name: 'Beach Activities',
-    description: 'Beach sports and relaxation',
-    image: '/assets/activities/beach.jpg'
-  },
-  {
-    id: 'activity_helicopter',
-    category: 'activities',
-    name: 'Helicopter Tours',
-    description: 'Aerial exploration',
-    image: '/assets/activities/helicopter.jpg'
-  },
-  {
-    id: 'activity_submarine',
-    category: 'activities',
-    name: 'Submarine Dives',
-    description: 'Deep sea exploration',
-    image: '/assets/activities/submarine.jpg'
-  },
-  {
-    id: 'activity_kitesurfing',
-    category: 'activities',
-    name: 'Kitesurfing',
-    description: 'Wind-powered water sports',
-    image: '/assets/activities/kitesurfing.jpg'
+    description: 'Sport fishing adventures',
+    image: '/assets/preferences/activities/folling.jpg'
   },
 
-  // ===== REGIONS =====
+  // ===== ROUTES =====
   {
-    id: 'region_mediterranean',
-    category: 'regions',
-    name: 'Mediterranean',
-    description: 'French Riviera, Italy, Greece',
-    image: '/assets/regions/mediterranean.jpg'
+    id: 'route_northwest_passage',
+    category: 'routes',
+    name: 'North West Passage',
+    description: 'Arctic navigation route',
+    image: '/assets/preferences/routes/NorthWest.svg'
   },
   {
-    id: 'region_caribbean',
-    category: 'regions',
+    id: 'route_west_coast',
+    category: 'routes',
+    name: 'West Coast',
+    description: 'Pacific coastline cruising',
+    image: '/assets/preferences/routes/WestCoast.svg'
+  },
+  {
+    id: 'route_east_coast',
+    category: 'routes',
+    name: 'East Coast',
+    description: 'Atlantic coastline exploration',
+    image: '/assets/preferences/routes/East Cost.svg'
+  },
+  {
+    id: 'route_caribbean',
+    category: 'routes',
     name: 'Caribbean',
-    description: 'Bahamas, Virgin Islands, St. Barts',
-    image: '/assets/regions/caribbean.jpg'
+    description: 'Island hopping paradise',
+    image: '/assets/preferences/routes/Carribbean.svg'
   },
   {
-    id: 'region_pacific',
-    category: 'regions',
-    name: 'Pacific',
-    description: 'Tahiti, Fiji, New Zealand',
-    image: '/assets/regions/pacific.jpg'
+    id: 'route_galapagos',
+    category: 'routes',
+    name: 'Galapagos',
+    description: 'Unique wildlife encounters',
+    image: '/assets/preferences/routes/Galapagos.svg'
   },
   {
-    id: 'region_atlantic',
-    category: 'regions',
-    name: 'Atlantic',
-    description: 'US East Coast, Northern Europe',
-    image: '/assets/regions/atlantic.jpg'
+    id: 'route_nordics',
+    category: 'routes',
+    name: 'Nordics',
+    description: 'Scandinavian fjords and islands',
+    image: '/assets/preferences/routes/Nordics.svg'
   },
   {
-    id: 'region_indian',
-    category: 'regions',
-    name: 'Indian Ocean',
-    description: 'Maldives, Seychelles, Mauritius',
-    image: '/assets/regions/indian.jpg'
+    id: 'route_mediterranean',
+    category: 'routes',
+    name: 'Mediterranean',
+    description: 'Classic European cruising',
+    image: '/assets/preferences/routes/Medditerranean.svg'
   },
   {
-    id: 'region_arctic',
-    category: 'regions',
-    name: 'Arctic',
-    description: 'Norway, Greenland, Svalbard',
-    image: '/assets/regions/arctic.jpg'
+    id: 'route_suez_canal',
+    category: 'routes',
+    name: 'Suez Canal',
+    description: 'Historic trade route passage',
+    image: '/assets/preferences/routes/Map.png'
   },
   {
-    id: 'region_antarctica',
-    category: 'regions',
-    name: 'Antarctica',
-    description: 'Antarctic Peninsula exploration',
-    image: '/assets/regions/antarctica.jpg'
+    id: 'route_french_polynesia',
+    category: 'routes',
+    name: 'French Polynesia',
+    description: 'Tahiti and surrounding islands',
+    image: '/assets/preferences/routes/French.svg'
   },
   {
-    id: 'region_southeast_asia',
-    category: 'regions',
-    name: 'Southeast Asia',
-    description: 'Thailand, Indonesia, Malaysia',
-    image: '/assets/regions/southeast-asia.jpg'
+    id: 'route_australasia',
+    category: 'routes',
+    name: 'Australasia',
+    description: 'Australia and New Zealand waters',
+    image: '/assets/preferences/routes/Australia.svg'
+  },
+  {
+    id: 'route_patagonia',
+    category: 'routes',
+    name: 'Patagonia',
+    description: 'Southern tip adventures',
+    image: '/assets/preferences/routes/Patagonia.svg'
   }
 ];
 

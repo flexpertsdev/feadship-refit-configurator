@@ -8,13 +8,13 @@
 // ==================================================
 
 import { useEffect } from 'react';
-import { getDesignStyles, getStyleForValue, type DesignStyleGroup } from '@/config';
+import { getPreferencesByCategory, getPreferenceById } from '@/data/preferences-library';
 
-// Map step numbers to design style groups
-const STEP_TO_GROUP: Record<number, DesignStyleGroup> = {
-  1: 'clean-complex',
-  2: 'vintage-modern',
-  3: 'traditional-radical'
+// Map step numbers to preference categories
+const STEP_TO_CATEGORY: Record<number, string> = {
+  1: 'design_complexity',
+  2: 'design_style',
+  3: 'design_traditional'
 };
 
 /**
@@ -24,14 +24,15 @@ const STEP_TO_GROUP: Record<number, DesignStyleGroup> = {
  * @returns The URL of the background image
  */
 export const getBackgroundImageUrl = (step: number, value: number): string => {
-  const group = STEP_TO_GROUP[step];
-  if (!group) {
+  const category = STEP_TO_CATEGORY[step];
+  if (!category) {
     // Fallback to old logic if step not found
     const imageNumber = value + 1;
     return `/assets/step${step}/${imageNumber}.jpg`;
   }
   
-  const style = getStyleForValue(group, value);
+  const styles = getPreferencesByCategory(category);
+  const style = styles.find(s => s.value === value);
   return style?.image || `/assets/step${step}/${value + 1}.jpg`;
 };
 
@@ -42,10 +43,11 @@ export const getBackgroundImageUrl = (step: number, value: number): string => {
  * @returns The title for the current step and value
  */
 export const getDesignTitle = (step: number, value: number): string => {
-  const group = STEP_TO_GROUP[step];
-  if (!group) return '';
+  const category = STEP_TO_CATEGORY[step];
+  if (!category) return '';
   
-  const style = getStyleForValue(group, value);
+  const styles = getPreferencesByCategory(category);
+  const style = styles.find(s => s.value === value);
   return style?.name?.toUpperCase() || '';
 };
 
@@ -56,11 +58,12 @@ export const getDesignTitle = (step: number, value: number): string => {
  * @returns The description for the current step and value
  */
 export const getDesignDescription = (step: number, value: number): string => {
-  const group = STEP_TO_GROUP[step];
-  if (!group) return '';
+  const category = STEP_TO_CATEGORY[step];
+  if (!category) return '';
   
-  const style = getStyleForValue(group, value);
-  return style?.details || '';
+  const styles = getPreferencesByCategory(category);
+  const style = styles.find(s => s.value === value);
+  return style?.description || '';
 };
 
 /**
@@ -69,10 +72,10 @@ export const getDesignDescription = (step: number, value: number): string => {
  */
 export const usePreloadImages = (step: number) => {
   useEffect(() => {
-    const group = STEP_TO_GROUP[step];
-    if (!group) return;
+    const category = STEP_TO_CATEGORY[step];
+    if (!category) return;
     
-    const styles = getDesignStyles(group);
+    const styles = getPreferencesByCategory(category);
     styles.forEach(style => {
       if (style.image) {
         const img = new Image();

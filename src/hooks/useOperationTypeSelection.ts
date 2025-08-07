@@ -8,10 +8,8 @@
 // ==================================================
 
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { useYachtStore } from '../stores/yachtStore';
-// Import from new config system
-import { getOperationTypes } from '@/config';
+import { getPreferencesByCategory } from '@/data/preferences-library';
 
 interface OperationType {
   id: string;
@@ -24,30 +22,44 @@ const useOperationTypeSelection = () => {
   const { currentYacht, addPreference, removePreference } = useYachtStore();
   const [isLoading, setIsLoading] = useState(false);
 
-  // Get operation types from config system
-  const operationTypes = getOperationTypes().map(op => ({
+  // Get operation types from preferences library
+  const operationTypes = getPreferencesByCategory('operation').map(op => ({
     id: op.id,
     name: op.name,
-    description: op.details || '',
+    description: op.description || '',
     image: op.image || ''
   }));
 
   // Get current selected operation type from yacht store - check preferences
   const isPrivate = currentYacht?.preferences.includes('operation_private');
-  const selectedType = isPrivate ? 'private' : 'charter';
+  // Start with no selection - user must explicitly choose
+  const selectedType = currentYacht?.preferences.includes('operation_private') ? 'operation_private' : 
+                      currentYacht?.preferences.includes('operation_charter') ? 'operation_charter' : 
+                      null;
 
   // Handle confirming the operation type selection
   const handleSelectOperationType = async (typeId: string) => {
     if (!currentYacht) return;
 
-    // In V2, operation type is stored as preferences
-    // Remove existing operation preference
-    if (isPrivate && typeId !== 'private') {
-      await removePreference('operation_private');
-    } else if (!isPrivate && typeId === 'private') {
-      await addPreference('operation_private');
+    // Check if this type is already selected
+    const isCurrentlySelected = currentYacht.preferences.includes(typeId);
+    
+    // If clicking on already selected card, deselect it
+    if (isCurrentlySelected) {
+      await removePreference(typeId);
+      return;
     }
-    // Charter is the default (no preference needed)
+
+    // Otherwise, remove any existing operation preferences
+    if (currentYacht.preferences.includes('operation_private')) {
+      await removePreference('operation_private');
+    }
+    if (currentYacht.preferences.includes('operation_charter')) {
+      await removePreference('operation_charter');
+    }
+    
+    // Then add the new preference
+    await addPreference(typeId);
   };
 
   return {

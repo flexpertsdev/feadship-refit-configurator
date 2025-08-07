@@ -13,15 +13,11 @@ import FeatureGrid from './FeatureGrid';
 import useFeatureSelection from '../../hooks/useFeatureSelection';
 
 interface FeatureGridViewProps {
-  featureType: string;
-  category: string;
-  fieldName: string;
+  category: string;  // Only need category now
 }
 
 const FeatureGridView: React.FC<FeatureGridViewProps> = ({ 
-  featureType, 
-  category, 
-  fieldName 
+  category 
 }) => {
   const { 
     features, 
@@ -29,9 +25,7 @@ const FeatureGridView: React.FC<FeatureGridViewProps> = ({
     isLoading, 
     handleFeatureSelect 
   } = useFeatureSelection({
-    featureType,
-    category,
-    fieldName
+    category
   });
 
   return (

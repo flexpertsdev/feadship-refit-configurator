@@ -26,8 +26,7 @@
 
 import React, { useMemo } from 'react';
 import { useYachtStore } from '@/stores/yachtStore';
-import { paintColors, getFilteredColors, PaintColor } from '@/data/paintColors';
-import { PAINT_TYPE_MAP } from '@/types/paint';
+import { paintColors, getFilteredColors, AlexSealColor } from '@/data/colors-library';
 import { getLevel3ForPaintPart } from '@/utils/navigationHelpers';
 import { hslToHex } from './utils';
 import SimpleColorSwatches from './SimpleColorSwatches';
@@ -35,6 +34,8 @@ import PaintTypeFilter from './PaintTypeFilter';
 import YachtPartSelector from './YachtPartSelector';
 import ColorPicker from './ColorPicker';
 import ColorDetailsPanel from './ColorDetailsPanel';
+import { PAINT_TYPE_MAP } from '@/types/paint';
+import type { Color as PaintColor } from '@/types/yacht-v2';
 
 interface SimplePaintPanelProps {
   onColorChange?: (part: string, color: string, type: string, name: string, group?: string) => void;
@@ -77,7 +78,7 @@ const SimplePaintPanel: React.FC<SimplePaintPanelProps> = ({ onColorChange }) =>
     }
     
     // Map UI paint type to data types using PAINT_TYPE_MAP
-    const mappedTypes = PAINT_TYPE_MAP[selectedPaintType] || [selectedPaintType];
+    const mappedTypes = PAINT_TYPE_MAP[selectedPaintType as keyof typeof PAINT_TYPE_MAP] || [selectedPaintType];
     
     // Filter colors by group and type
     let colors = paintColors;
@@ -131,7 +132,7 @@ const SimplePaintPanel: React.FC<SimplePaintPanelProps> = ({ onColorChange }) =>
       id: `custom-${Date.now()}`,
       name: `Custom ${customCount + 1}`,
       hex: hexColor,
-      type: (PAINT_TYPE_MAP[selectedPaintType]?.[0] || selectedPaintType) as 'glossy' | 'matte' | 'metallic',
+      type: (PAINT_TYPE_MAP[selectedPaintType as keyof typeof PAINT_TYPE_MAP]?.[0] || selectedPaintType) as 'gloss' | 'matte' | 'metallic',
       group: 'custom-colours'
     };
     
@@ -232,7 +233,7 @@ const SimplePaintPanel: React.FC<SimplePaintPanelProps> = ({ onColorChange }) =>
       )}
       
       {/* Color Swatches */}
-      <div className="flex-1 px-3 overflow-hidden flex flex-col">
+      <div className="flex-1 px-3  overflow-hidden flex flex-col">
         <h3 className="text-xs font-bold text-white mb-1 flex-shrink-0">Color Selection</h3>
         <SimpleColorSwatches
           colors={filteredColors}

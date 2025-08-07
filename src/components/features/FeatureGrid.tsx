@@ -8,10 +8,11 @@
 // ==================================================
 
 
-import React from 'react';
+import React, { useState } from 'react';
 import StandardFeatureCard, { StandardFeature } from './StandardFeatureCard';
 import { Skeleton } from '../ui/skeleton';
 import { Card } from '../ui/card';
+import FeatureDetailModal from './FeatureDetailModal';
 
 interface FeatureGridProps {
   features: StandardFeature[];
@@ -26,6 +27,27 @@ const FeatureGrid: React.FC<FeatureGridProps> = ({
   isLoading, 
   onSelect 
 }) => {
+  const [selectedFeatureForModal, setSelectedFeatureForModal] = useState<StandardFeature | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Handle image click - opens modal
+  const handleFeatureClick = (featureId: string) => {
+    const feature = features.find(f => f.id === featureId);
+    if (feature) {
+      setSelectedFeatureForModal(feature);
+      setIsModalOpen(true);
+    }
+  };
+
+  // Handle direct selection (from button click)
+  const handleDirectSelect = (featureId: string) => {
+    onSelect(featureId);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setSelectedFeatureForModal(null);
+  };
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 tablet:grid-cols-2 ipad:grid-cols-3 ipadpro:grid-cols-4 gap-4 tablet:gap-6">
@@ -47,16 +69,28 @@ const FeatureGrid: React.FC<FeatureGridProps> = ({
   }
 
   return (
-    <div className="grid grid-cols-1 tablet:grid-cols-2 ipad:grid-cols-3 ipadpro:grid-cols-4 gap-4 tablet:gap-6">
-      {features.map((feature) => (
-        <StandardFeatureCard 
-          key={feature.id} 
-          feature={feature} 
-          isSelected={selectedFeatures.includes(feature.id)} 
-          onSelect={onSelect} 
-        />
-      ))}
-    </div>
+    <>
+      <div className="grid grid-cols-1 tablet:grid-cols-2 ipad:grid-cols-3 ipadpro:grid-cols-4 gap-4 tablet:gap-6">
+        {features.map((feature) => (
+          <StandardFeatureCard 
+            key={feature.id} 
+            feature={feature} 
+            isSelected={selectedFeatures.includes(feature.id)} 
+            onSelect={handleFeatureClick}  // For image click -> modal
+            onDirectSelect={handleDirectSelect}  // For button click -> toggle
+          />
+        ))}
+      </div>
+      
+      {/* Feature Detail Modal */}
+      <FeatureDetailModal
+        feature={selectedFeatureForModal}
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        isSelected={selectedFeatureForModal ? selectedFeatures.includes(selectedFeatureForModal.id) : false}
+        onToggleSelect={onSelect}
+      />
+    </>
   );
 };
 

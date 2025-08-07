@@ -1,0 +1,40 @@
+/* Gotham HTF Font Family */
+@font-face {
+  font-family: 'Gotham HTF';
+  src: url('https://bclvayjgvvmasdbmxcrg.supabase.co/storage/v1/object/public/assets//gotham-light-webfont.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham HTF';
+  src: url('https://bclvayjgvvmasdbmxcrg.supabase.co/storage/v1/object/public/assets//gotham-book-webfont.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham HTF';
+  src: url('https://bclvayjgvvmasdbmxcrg.supabase.co/storage/v1/object/public/assets//gotham-medium-webfont.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham HTF';
+  src: url('https://bclvayjgvvmasdbmxcrg.supabase.co/storage/v1/object/public/assets//gotham-bold-webfont.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham HTF';
+  src: url('https://bclvayjgvvmasdbmxcrg.supabase.co/storage/v1/object/public/assets//gotham-black-webfont.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}

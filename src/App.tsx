@@ -11,8 +11,9 @@
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import AppLayout from "./components/layout/AppLayout";
 import NotFound from "./pages/NotFound";
+import AppLayout from "./components/layout/AppLayout";
+
 import { AuthProvider } from "./context/AuthContext";
 
 // Import all pages
@@ -24,14 +25,9 @@ import DesignPage from "./pages/DesignPage";
 import Operations1Page from "./pages/Operations1Page";
 import Operations2Page from "./pages/Operations2Page";
 import Operations3Page from "./pages/Operations3Page";
-import ConfiguratorPage from "./pages/ConfiguratorPage";
-import FeaturesPage from "./pages/FeaturesPage";
-import SustainabilityPage from "./pages/SustainabilityPage";
-import ServicesPage from "./pages/ServicesPage";
+import ConfiguratorPageV2 from "./pages/ConfiguratorPageV2";
+import UnifiedConfigPage from "./pages/UnifiedConfigPage";
 import SummaryPage from "./pages/SummaryPage";
-import FontTestPage from "./pages/FontTestPage";
-import FontTestFirebase from "./pages/FontTestFirebase";
-import ArcwareTest from "./pages/ArcwareTest";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import DebugPanel from "./components/debug/DebugPanel";
 
@@ -53,12 +49,12 @@ const App = () => {
               {/* Configurator pages without AppLayout */}
               <Route path="/configurator" element={
                 <ProtectedRoute>
-                  <ConfiguratorPage />
+                  <ConfiguratorPageV2 />
                 </ProtectedRoute>
               } />
               <Route path="/extensions" element={
                 <ProtectedRoute>
-                  <ConfiguratorPage />
+                  <ConfiguratorPageV2 />
                 </ProtectedRoute>
               } />
               
@@ -100,20 +96,20 @@ const App = () => {
                   </ProtectedRoute>
                 } />
                 
-                {/* Other main routes - protected */}
+                {/* Configuration pages - all use UnifiedConfigPage */}
                 <Route path="/features" element={
                   <ProtectedRoute>
-                    <FeaturesPage />
+                    <UnifiedConfigPage />
                   </ProtectedRoute>
                 } />
                 <Route path="/sustainability" element={
                   <ProtectedRoute>
-                    <SustainabilityPage />
+                    <UnifiedConfigPage />
                   </ProtectedRoute>
                 } />
                 <Route path="/services" element={
                   <ProtectedRoute>
-                    <ServicesPage />
+                    <UnifiedConfigPage />
                   </ProtectedRoute>
                 } />
                 <Route path="/summary" element={
@@ -122,12 +118,7 @@ const App = () => {
                   </ProtectedRoute>
                 } />
                 
-                {/* Font test pages - public access */}
-                <Route path="/font-test" element={<FontTestPage />} />
-                <Route path="/font-test-firebase" element={<FontTestFirebase />} />
-                
-                {/* Arcware test page - public access */}
-                <Route path="/arcware-test" element={<ArcwareTest />} />
+              
                 
                 {/* 404 page */}
                 <Route path="*" element={<NotFound />} />

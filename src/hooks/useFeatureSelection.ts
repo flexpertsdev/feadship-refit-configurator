@@ -13,30 +13,14 @@ import { getConfigsByCategory } from '@/data/configs-library';
 import { isConfigAvailableForModel } from '@/data/yacht-models-library';
 
 interface UseFeatureSelectionProps {
-  featureType: string;
-  category: string;
-  fieldName: string;
+  category: string;  // Only need category now
 }
 
-export const useFeatureSelection = ({ featureType, category, fieldName }: UseFeatureSelectionProps) => {
+export const useFeatureSelection = ({ category }: UseFeatureSelectionProps) => {
   const { currentYacht, toggleConfig } = useYachtStore();
   
-  // Map legacy categories to new configs library categories
-  const mapCategory = (cat: string): string => {
-    const mapping: Record<string, string> = {
-      'exterior-features': 'exterior',
-      'interior-features': 'interior', 
-      'toys-tenders': 'toys',
-      'toys_and_tender': 'toys',  // Handle both naming conventions
-      'sustainability': 'sustainability',
-      'services': 'services'
-    };
-    return mapping[cat] || cat;
-  };
-  
-  // Get features from configs library
-  const mappedCategory = mapCategory(category);
-  const availableConfigs = getConfigsByCategory(mappedCategory);
+  // Get features from configs library - no mapping needed
+  const availableConfigs = getConfigsByCategory(category);
   
   // Filter by model availability
   const modelFilteredConfigs = currentYacht 
@@ -62,6 +46,7 @@ export const useFeatureSelection = ({ featureType, category, fieldName }: UseFea
     name: config.name,
     description: config.description || '',
     image: config.image || '',
+    video: config.video || '',  // Include video URL if present
     category: config.category
   }));
 

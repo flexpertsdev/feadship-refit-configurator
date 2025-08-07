@@ -9,7 +9,7 @@
 
 import React from 'react';
 import { PaintConfig } from '@/types/yacht-v2';
-import { colorGroups } from '@/data/paintColors';
+import { colorGroups } from '@/data/colors-library';
 
 interface ColorDetailsPanelProps {
   paintConfig: PaintConfig | null;

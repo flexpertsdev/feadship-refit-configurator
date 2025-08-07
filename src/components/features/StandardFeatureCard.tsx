@@ -24,7 +24,8 @@ export interface StandardFeature {
 interface StandardFeatureCardProps {
   feature: StandardFeature;
   isSelected: boolean;
-  onSelect: (id: string) => void;
+  onSelect: (id: string) => void;  // For image click -> modal
+  onDirectSelect?: (id: string) => void;  // For button click -> add/remove
   className?: string;
 }
 
@@ -32,8 +33,14 @@ const StandardFeatureCard: React.FC<StandardFeatureCardProps> = ({
   feature, 
   isSelected, 
   onSelect,
+  onDirectSelect,
   className 
 }) => {
+  const handleImageClick = () => {
+    // Open modal - parent will handle this
+    onSelect(feature.id);
+  };
+
   return (
     <Card 
       className={cn(
@@ -47,29 +54,27 @@ const StandardFeatureCard: React.FC<StandardFeatureCardProps> = ({
         className
       )}
     >
-      {/* Image Area - 2/3 of card height */}
-      <div className="relative flex-grow overflow-hidden bg-gray-100" style={{ flex: '2 0 0' }}>
-        {feature.image ? (
-          <>
-            <img 
-              src={feature.image} 
-              alt={feature.name} 
-              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
-            />
-            {/* Selected overlay */}
-            {isSelected && (
-              <div className="absolute inset-0 bg-accent/20 flex items-center justify-center">
-                <div className="bg-accent rounded-full p-3 shadow-lg">
-                  <Check className="h-8 w-8 text-white" strokeWidth={3} />
-                </div>
-              </div>
-            )}
-          </>
-        ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gray-200">
-            <span className="text-gray-400 text-sm">No image</span>
-          </div>
-        )}
+      {/* Image Area - 2/3 of card height - Clickable for modal */}
+      <div 
+        className="relative flex-grow overflow-hidden bg-gray-100 cursor-pointer" 
+        style={{ flex: '2 0 0' }}
+        onClick={handleImageClick}
+      >
+        <img 
+          src={feature.image || 'https://placehold.co/400x300/1a1a2e/ffffff?text=Feadship'} 
+          alt={feature.name} 
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = 'https://placehold.co/400x300/1a1a2e/ffffff?text=Feadship';
+          }}
+        />
+        {/* Hover overlay indicating clickable */}
+        <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
+          <span className="text-white text-sm font-medium opacity-0 hover:opacity-100 transition-opacity bg-black/60 px-3 py-1 rounded">
+            View Details
+          </span>
+        </div>
       </div>
 
       {/* Text Area - 1/3 of card height */}
@@ -89,7 +94,12 @@ const StandardFeatureCard: React.FC<StandardFeatureCardProps> = ({
           )}
           onClick={(e) => {
             e.stopPropagation();
-            onSelect(feature.id);
+            // Use onDirectSelect if provided, otherwise fallback to onSelect
+            if (onDirectSelect) {
+              onDirectSelect(feature.id);
+            } else {
+              onSelect(feature.id);
+            }
           }}
         >
           {isSelected ? (

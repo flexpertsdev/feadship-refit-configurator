@@ -32,26 +32,26 @@ const OperationTypeCard: React.FC<OperationTypeProps> = ({
       onClick={() => onSelect(id)}
       className={cn(
         "relative flex flex-col items-center rounded-xl sm:rounded-2xl cursor-pointer transition-all duration-300",
-        "border-2 backdrop-blur-sm",
         // Dynamic padding that scales with viewport
         "p-3 sm:p-4 tablet:p-6 laptop:p-8 hd:p-10 4k:p-12",
         // Minimum height for touch targets on mobile
         "min-h-[200px] sm:min-h-[250px] tablet:min-h-[300px]",
         // Responsive max height to prevent overflow
         "max-h-[calc(50vh-60px)] sm:max-h-[calc(70vh-120px)] tablet:max-h-[calc(80vh-140px)]",
+        // Only show border when selected, transparent background when not
         isSelected
-          ? "border-accent bg-accent/10"
-          : "border-white/20 bg-white/5 hover:border-white/30 hover:bg-white/10"
+          ? "border-2 border-accent"
+          : "border-2 border-transparent hover:border-white/10"
       )}
     >
-      {/* Boat icon with responsive sizing */}
+      {/* Boat icon with responsive sizing - increased size */}
       <div className="relative w-full flex items-center justify-center flex-shrink-0">
         <div className={cn(
           "relative transition-all duration-300",
-          // Responsive image heights using viewport-aware sizing
-          "h-[60px] sm:h-[80px] tablet:h-[100px] laptop:h-[120px] hd:h-[140px] 4k:h-[160px]",
+          // Increased image heights
+          "h-[80px] sm:h-[100px] tablet:h-[130px] laptop:h-[160px] hd:h-[180px] 4k:h-[200px]",
           // Add responsive margins
-          "mb-2 sm:mb-3 tablet:mb-4 laptop:mb-5"
+          "mb-3 sm:mb-4 tablet:mb-5 laptop:mb-6"
         )}>
           <img
             src={image}
@@ -67,40 +67,39 @@ const OperationTypeCard: React.FC<OperationTypeProps> = ({
       {/* Name button with responsive sizing */}
       <div 
         className={cn(
-          "rounded-full font-medium transition-colors duration-300 flex-shrink-0",
+          "rounded-full font-medium transition-all duration-300 flex-shrink-0 flex items-center gap-2",
           // Responsive padding
           "px-4 py-1.5 sm:px-5 sm:py-2 tablet:px-6 tablet:py-2.5 laptop:px-8 laptop:py-3",
-          // Responsive margins
-          "mb-2 sm:mb-3 tablet:mb-4 laptop:mb-5",
+          // Increased bottom margin for more spacing
+          "mb-4 sm:mb-5 tablet:mb-6 laptop:mb-8",
           // Responsive text sizing
           "text-xs sm:text-sm tablet:text-base laptop:text-lg hd:text-xl 4k:text-2xl",
+          // Button styling: primary bg with white border when not selected, accent when selected
           isSelected 
-            ? "bg-accent text-white" 
-            : "bg-white/90 text-primary"
+            ? "bg-accent text-white border-2 border-accent" 
+            : "bg-primary text-white border border-white/50"
         )}
       >
+        {isSelected && (
+          <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 tablet:w-3 tablet:h-3 bg-white rounded-full" />
+        )}
         {name}
       </div>
 
       {/* Description with responsive text and line clamping */}
       <p className={cn(
-        "text-white/80 leading-relaxed text-center flex-1 overflow-hidden",
-        // Responsive text sizing
-        "text-xs sm:text-sm tablet:text-base laptop:text-lg hd:text-xl 4k:text-2xl",
+        "text-white/70 leading-relaxed text-center flex-1 overflow-hidden",
+        // Reduced text sizing
+        "text-[10px] sm:text-xs tablet:text-sm laptop:text-base hd:text-lg 4k:text-xl",
         // Responsive padding
         "px-2 sm:px-3 tablet:px-4",
         // Line clamping for overflow
-        "line-clamp-3 sm:line-clamp-4 tablet:line-clamp-none"
+        "line-clamp-4 sm:line-clamp-5 tablet:line-clamp-none"
       )}>
         {description}
       </p>
 
-      {/* Selection indicator - responsive positioning */}
-      {isSelected && (
-        <div className="absolute top-2 right-2 sm:top-3 sm:right-3 tablet:top-4 tablet:right-4">
-          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-accent rounded-full animate-pulse" />
-        </div>
-      )}
+      {/* Selection indicator removed per design requirements */}
     </div>
   );
 };

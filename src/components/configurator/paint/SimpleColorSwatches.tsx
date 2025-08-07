@@ -8,13 +8,13 @@
 // ==================================================
 
 import React from 'react';
-import { PaintColor } from '@/data/paintColors';
+import { AlexSealColor } from '@/data/colors-library';
 import { useYachtStore } from '@/stores/yachtStore';
 
 interface SimpleColorSwatchesProps {
-  colors: PaintColor[];
+  colors: AlexSealColor[];
   selectedPaintType: string;
-  onColorSelect: (color: PaintColor) => void;
+  onColorSelect: (color: AlexSealColor) => void;
 }
 
 const SimpleColorSwatches: React.FC<SimpleColorSwatchesProps> = ({
@@ -58,7 +58,7 @@ const SimpleColorSwatches: React.FC<SimpleColorSwatchesProps> = ({
             relative flex-shrink-0 w-[55px] h-[100px] rounded-lg
             transition-all duration-200 hover:scale-105 hover:shadow-xl
             ${isColorSelected(color) 
-              ? 'ring-3 ring-accent ring-offset-2 ring-offset-primary shadow-xl scale-105' 
+              ? 'ring-4 ring-accent ring-offset-2 ring-offset-primary shadow-xl scale-105' 
               : 'ring-1 ring-white/20 hover:ring-2 hover:ring-white/40'
             }
           `}
@@ -66,23 +66,7 @@ const SimpleColorSwatches: React.FC<SimpleColorSwatchesProps> = ({
           title={`${color.name} (${color.type})`}
           aria-label={`Select ${color.name} ${color.type} paint`}
         >
-          {isColorSelected(color) && (
-            <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-black/20">
-              <svg 
-                className="w-6 h-6 text-white drop-shadow-lg" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
-              >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={3} 
-                  d="M5 13l4 4L19 7" 
-                />
-              </svg>
-            </div>
-          )}
+          {/* Checkmark removed per design requirements */}
         </button>
       ))}
       

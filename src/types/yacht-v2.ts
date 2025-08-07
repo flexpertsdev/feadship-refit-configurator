@@ -19,18 +19,22 @@ export interface LibraryItem {
   name: string;            // display name
   description?: string;    // optional description
   image?: string;          // image URL
+  video?: string;          // YouTube/video URL (mainly for services)
   value?: number;          // for design levels (1, 2, or 3)
   metadata?: any;          // any extra data specific to this item
 }
 
-// Color object (for custom colors and paint)
-export interface ColorItem {
+// Unified Color type for all paint/color uses
+export interface Color {
   id: string;              // unique identifier
   name: string;            // color name
-  hex: string;             // color value
+  hex: string;             // hex color value
   type: 'gloss' | 'matte' | 'metallic';  // finish type
   group: string;           // color group (e.g., 'Whites', 'Blues', 'custom')
 }
+
+// Legacy alias for backward compatibility (will be removed)
+export type ColorItem = Color;
 
 // Yacht Model Definition
 export interface YachtModel {
@@ -43,10 +47,10 @@ export interface YachtModel {
   default_extension: number;       // default extension value
 }
 
-// Paint configuration for a yacht part
+// Paint configuration for a yacht part (simplified to match Color)
 export interface PaintConfig {
-  color: string;           // hex color
-  type: string;            // 'gloss', 'matte', 'metallic'
+  hex: string;             // hex color value
+  type: 'gloss' | 'matte' | 'metallic';  // finish type
   group: string;           // color group
   name: string;            // color name
 }
@@ -82,7 +86,7 @@ export interface YachtConfigV2 {
   };
   
   // Custom colors created by user
-  custom_colors: ColorItem[];
+  custom_colors: Color[];
   
   // Extension value (0-5, but limited by model)
   extension: number;

@@ -10,15 +10,15 @@
 import React from 'react';
 import { useYachtStore } from '../../stores/yachtStore';
 import ActivityCard from './ActivityCard';
-import { getActivities } from '@/config';
+import { getPreferencesByCategory } from '@/data/preferences-library';
 import { cn } from '@/lib/utils';
 
-// Get all activities from the config and ensure they have images
-const ACTIVITIES = getActivities().filter(activity => activity.image).map(activity => ({
+// Get all activities from preferences library
+const ACTIVITIES = getPreferencesByCategory('activities').map(activity => ({
   id: activity.id,
   name: activity.name,
-  image: activity.image!,
-  details: activity.details,
+  image: activity.image || '',
+  details: activity.description,
   category: activity.category
 }));
 

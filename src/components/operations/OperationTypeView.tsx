@@ -32,7 +32,7 @@ const OperationTypeView: React.FC = () => {
               name={type.name} 
               description={type.description} 
               image={type.image} 
-              isSelected={selectedType === type.id} 
+              isSelected={selectedType === type.id && selectedType !== null} 
               onSelect={handleSelectOperationType} 
             />
           ))}

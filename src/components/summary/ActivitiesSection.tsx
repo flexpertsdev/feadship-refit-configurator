@@ -11,7 +11,14 @@
 import React from 'react';
 import Section from './Section';
 import ActivityCard from './ActivityCard';
-import { ACTIVITIES } from '../../data/activitiesData';
+import { getPreferencesByCategory } from '@/data/preferences-library';
+
+// Get activities from preferences library
+const ACTIVITIES = getPreferencesByCategory('activities').map(a => ({
+  id: a.id,
+  name: a.name,
+  image: a.image
+}));
 
 interface Activity {
   title: string;

@@ -13,7 +13,7 @@ import DesignSlider from '../components/design/DesignSlider';
 import NavigationBar from '@/components/navigation/NavigationBar';
 import LogoRow from '@/components/layout/LogoRow';
 import { useYachtStore } from '../stores/yachtStore';
-import { getDesignStyles } from '@/config';
+import { getPreferencesByCategory } from '@/data/preferences-library';
 import { usePageConfig } from '../utils/usePageConfig';
 
 // Configuration for each design page variant
@@ -52,8 +52,15 @@ const DesignPage = () => {
   const { saveYachtData, setNavigationState, currentYacht } = useYachtStore();
   const pageConfig = usePageConfig();
   
-  // Get design styles from config
-  const designStyles = getDesignStyles(config.configKey);
+  // Get design styles from preferences library
+  // Map config keys to preference categories
+  const categoryMap: Record<string, string> = {
+    'clean-complex': 'design_complexity',
+    'vintage-modern': 'design_style', 
+    'traditional-radical': 'design_traditional'
+  };
+  const category = categoryMap[config.configKey] || 'design_complexity';
+  const designStyles = getPreferencesByCategory(category);
   const currentStyle = designStyles.find(s => s.value === currentLevel);
   
   // Handle level change with direct update pattern

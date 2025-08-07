@@ -59,7 +59,7 @@ const ColorPicker = ({ customColor, onCustomColorChange, onAddCustomColor }: Col
   };
 
   return (
-    <div className="w-[20%] min-w-[240px] pl-2 pr-2">
+    <div className="w-[10%] min-w-[240px] pl-2 pr-2">
       <h3 className="text-2xs tablet:text-xs ipad:text-sm hd:text-[13px] font-bold text-white mb-2 tablet:mb-3">Custom Color</h3>
       <div className="flex flex-col space-y-2">
         {/* Color picker components row */}

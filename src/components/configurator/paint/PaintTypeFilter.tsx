@@ -12,29 +12,35 @@ import React from 'react';
 import { PAINT_TYPE_MAP } from '@/types/paint';
 
 interface PaintTypeFilterProps {
-  selectedPaintType: string;
-  onPaintTypeSelect: (type: string) => void;
+  selectedPaintTypes: string[];
+  onPaintTypeToggle: (type: string) => void;
 }
 
-const PaintTypeFilter = ({ selectedPaintType, onPaintTypeSelect }: PaintTypeFilterProps) => {
+const PaintTypeFilter = ({ selectedPaintTypes, onPaintTypeToggle }: PaintTypeFilterProps) => {
   return (
     <div className="w-[12%] min-w-[120px] pl-2 pr-2">
       <h3 className="text-2xs tablet:text-xs ipad:text-sm hd:text-[13px] font-bold text-white mb-2 tablet:mb-3">Paint Type</h3>
       <div className="space-y-2">
-        {Object.keys(PAINT_TYPE_MAP).map(type => (
-          <button 
-            key={type}
-            onClick={() => onPaintTypeSelect(type)}
-            className={`flex items-center w-full py-1 px-2 rounded group transition-colors ${
-              selectedPaintType === type ? 'text-white bg-white/10' : 'text-white/60 hover:text-white/80 hover:bg-white/5'
-            }`}
-          >
-            <div className={`w-2.5 h-2.5 rounded-full mr-2 transition-colors ${
-              selectedPaintType === type ? 'bg-accent' : 'bg-white/20 group-hover:bg-white/30'
-            }`} />
-            <span className="capitalize text-xs tablet:text-sm">{type}</span>
-          </button>
-        ))}
+        {Object.keys(PAINT_TYPE_MAP).map(type => {
+          const isSelected = selectedPaintTypes.includes(type);
+          return (
+            <button 
+              key={type}
+              onClick={() => onPaintTypeToggle(type)}
+              className={`flex items-center w-full py-1 px-2 rounded group transition-colors ${
+                isSelected ? 'text-white bg-white/10' : 'text-white/60 hover:text-white/80 hover:bg-white/5'
+              }`}
+            >
+              {/* Circle indicator instead of checkbox */}
+              <div className={`w-3 h-3 rounded-full mr-2 transition-all border-2 ${
+                isSelected 
+                  ? 'bg-accent border-accent' 
+                  : 'bg-transparent border-white/30 group-hover:border-white/50'
+              }`} />
+              <span className="capitalize text-xs tablet:text-sm">{type}</span>
+            </button>
+          );
+        })}
       </div>
     </div>
   );

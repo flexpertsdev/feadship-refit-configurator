@@ -59,7 +59,7 @@ const ColorPicker = ({ customColor, onCustomColorChange, onAddCustomColor }: Col
   };
 
   return (
-    <div className="w-[10%] min-w-[240px] pl-2 pr-2">
+    <div className="w-[1600px] pl-2 pr-2">
       <h3 className="text-2xs tablet:text-xs ipad:text-sm hd:text-[13px] font-bold text-white mb-2 tablet:mb-3">Custom Color</h3>
       <div className="flex flex-col space-y-2">
         {/* Color picker components row */}
@@ -103,7 +103,7 @@ const ColorPicker = ({ customColor, onCustomColorChange, onAddCustomColor }: Col
           >
             {/* Current color indicator */}
             <div 
-              className="absolute w-3 h-3 rounded-full border-2 border-white transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+              className="absolute w-8 h-3 rounded-full border-2 border-white transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
               style={{
                 left: `${customColor.startsWith('#') ? 50 : parseInt(customColor.split(',')[1]) || 0}%`,
                 top: `${customColor.startsWith('#') ? 50 : 100 - (parseInt(customColor.split(',')[2]) || 0)}%`,
@@ -114,7 +114,7 @@ const ColorPicker = ({ customColor, onCustomColorChange, onAddCustomColor }: Col
           
           {/* Hue slider (vertical bar) */}
           <div 
-            className="relative w-6 h-[55px] tablet:h-[65px] ipad:h-[75px] rounded overflow-hidden cursor-pointer"
+            className="relative w-[300px] h-[55px] tablet:h-[65px] ipad:h-[75px] rounded overflow-hidden cursor-pointer"
             style={{
               background: 'linear-gradient(to bottom, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00)'
             }}
@@ -150,7 +150,7 @@ const ColorPicker = ({ customColor, onCustomColorChange, onAddCustomColor }: Col
           >
             {/* Hue indicator */}
             <div 
-              className="absolute w-6 h-1 bg-white border border-gray-800 pointer-events-none shadow-sm"
+              className="absolute w-8 h-1 bg-white border border-gray-800 pointer-events-none shadow-sm"
               style={{
                 top: `${customColor.startsWith('#') ? 50 : ((parseInt(customColor.split(',')[0]) || 0) / 360) * 100}%`,
                 transform: 'translateY(-50%)',

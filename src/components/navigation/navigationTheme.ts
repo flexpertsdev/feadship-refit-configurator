@@ -25,7 +25,7 @@ export const THEME = {
   fontSize: {
     level1: 'text-base',
     level2: 'text-base',
-    level3: 'text-sm',
+    level3: 'text-base',
   },
   transitions: {
     default: 'transition-all duration-200',

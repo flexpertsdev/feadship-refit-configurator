@@ -117,7 +117,7 @@ const Level1Navigation: React.FC<Level1NavigationProps> = ({
         {/* Desktop back button with text */}
         <Button
           variant="static"
-          size="default"
+          size="sm"
           className="mr-2 sm:flex"
           onClick={onBack}
         >
@@ -127,7 +127,7 @@ const Level1Navigation: React.FC<Level1NavigationProps> = ({
         {/* Desktop next button with text */}
         <Button
           variant="static" 
-          size="default"
+          size="sm"
           className="mr-2 sm:flex mr-4"
           onClick={onNext}
         >

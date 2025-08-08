@@ -10,6 +10,7 @@
 import React from 'react';
 import { AlexSealColor } from '@/data/colors-library';
 import { useYachtStore } from '@/stores/yachtStore';
+import type { Color as PaintColor } from '@/types/yacht-v2';
 
 interface SimpleColorSwatchesProps {
   colors: AlexSealColor[];
@@ -41,32 +42,65 @@ const SimpleColorSwatches: React.FC<SimpleColorSwatchesProps> = ({
   const currentPartColor = getCurrentPartColor();
   
   // Check if a color is selected for current part
-  const isColorSelected = (color: PaintColor): boolean => {
+  const isColorSelected = (color: AlexSealColor): boolean => {
     if (!currentPartColor) return false;
     
     return color.hex.toLowerCase() === (currentPartColor.hex || '').toLowerCase() &&
            color.type === currentPartColor.type;
   };
   
+  // Get visual effect for paint type
+  const getPaintTypeStyle = (type: string) => {
+    switch(type) {
+      case 'metallic':
+        return {
+          background: `linear-gradient(45deg, transparent 25%, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.1) 50%, transparent 50%, transparent 75%, rgba(255,255,255,0.1) 75%)`,
+          backgroundSize: '4px 4px',
+          animation: 'shimmer 3s infinite linear'
+        };
+      case 'gloss':
+        return {
+          boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.2), inset 0 1px 2px rgba(255,255,255,0.3)',
+        };
+      case 'matte':
+        return {
+          // No additional effects for matte
+        };
+      default:
+        return {};
+    }
+  };
+  
   return (
-    <div className="flex gap-3 overflow-x-auto py-2 scrollbar-none flex-1 px-1">
+    <div className="flex gap-3 overflow-x-auto py-3 scrollbar-none flex-1 px-2">
       {colors.map(color => (
         <button
-          key={color.id}
+          key={`${color.id}-${color.type}`}
           onClick={() => onColorSelect(color)}
           className={`
-            relative flex-shrink-0 w-[55px] h-[100px] rounded-lg
-            transition-all duration-200 hover:scale-105 hover:shadow-xl
+            relative flex-shrink-0 w-[40px] h-[70px] rounded-lg overflow-hidden
+            transition-all duration-200 hover:scale-102 hover:shadow-xl
             ${isColorSelected(color) 
-              ? 'ring-4 ring-accent ring-offset-2 ring-offset-primary shadow-xl scale-105' 
-              : 'ring-1 ring-white/20 hover:ring-2 hover:ring-white/40'
+              ? 'ring-2 ring-accent ring-offset-1  ring-offset-primary  scale-102' 
+              : 'ring-0 ring-white/20 hover:ring-white/40'
             }
           `}
-          style={{ backgroundColor: color.hex }}
           title={`${color.name} (${color.type})`}
           aria-label={`Select ${color.name} ${color.type} paint`}
         >
-          {/* Checkmark removed per design requirements */}
+          {/* Base color */}
+          <div 
+            className="absolute inset-0"
+            style={{ backgroundColor: color.hex }}
+          />
+          
+          {/* Paint type effect overlay */}
+          <div 
+            className="absolute inset-0 pointer-events-none"
+            style={getPaintTypeStyle(color.type)}
+          />
+          
+         
         </button>
       ))}
       
